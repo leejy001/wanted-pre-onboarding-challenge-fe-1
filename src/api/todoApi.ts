@@ -1,11 +1,10 @@
 import axios from "axios";
 
-const headers = {
-  "Content-Type": "application/json",
-  Authorization: sessionStorage.getItem("token"),
-};
-
 export const getTodos = async () => {
+  const headers = {
+    "Content-Type": "application/json",
+    authorization: localStorage.getItem("token"),
+  };
   try {
     const response = await axios.get(
       process.env.REACT_APP_BASIC_URL + "/todos",
@@ -18,6 +17,10 @@ export const getTodos = async () => {
 };
 
 export const getTodo = async (id: string | undefined) => {
+  const headers = {
+    "Content-Type": "application/json",
+    authorization: localStorage.getItem("token"),
+  };
   try {
     const response = await axios.get(
       process.env.REACT_APP_BASIC_URL + `/todos/${id}`,
@@ -30,6 +33,10 @@ export const getTodo = async (id: string | undefined) => {
 };
 
 export const addTodo = async (data: { title: string; content: string }) => {
+  const headers = {
+    "Content-Type": "application/json",
+    authorization: localStorage.getItem("token"),
+  };
   try {
     const response = await axios.post(
       process.env.REACT_APP_BASIC_URL + "/todos",
@@ -47,6 +54,10 @@ export const editTodo = async (data: {
   title: string;
   content: string;
 }) => {
+  const headers = {
+    "Content-Type": "application/json",
+    authorization: localStorage.getItem("token"),
+  };
   const body = {
     title: data.title,
     content: data.content,
@@ -64,6 +75,10 @@ export const editTodo = async (data: {
 };
 
 export const removeTodo = async (id: string) => {
+  const headers = {
+    "Content-Type": "application/json",
+    authorization: localStorage.getItem("token"),
+  };
   try {
     const response = await axios.delete(
       process.env.REACT_APP_BASIC_URL + `/todos/${id}`,

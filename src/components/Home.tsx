@@ -11,10 +11,10 @@ function Home({ isShow, handleClick }: PropsTypes) {
     <MainContainer isShow={isShow}>
       <TodoLogo>Todo</TodoLogo>
       <SignButton onClick={(e) => handleClick(e)} data-route="sign-in">
-        SignIn
+        Sign In
       </SignButton>
       <SignButton onClick={(e) => handleClick(e)} data-route="sign-up">
-        SignUp
+        Sign Up
       </SignButton>
     </MainContainer>
   );
@@ -23,17 +23,32 @@ function Home({ isShow, handleClick }: PropsTypes) {
 export default Home;
 
 const MainContainer = styled.div<{ isShow: string }>`
+  margin: 0 auto;
   display: ${({ isShow }) => (isShow === "home" ? "flex" : "none")};
   flex-direction: column;
+  justify-content: center;
   align-items: center;
+  width: 350px;
+  height: 350px;
+  border: 2px solid #1e90ff;
+  border-radius: 20px;
 `;
 
 const TodoLogo = styled.div`
-  font-size: 20px;
+  color: #1e90ff;
+  font-size: 40px;
+  font-weight: 700;
+  margin-bottom: 20px;
 `;
 
 const SignButton = styled.button`
+  background-color: #1e90ff;
+  border: none;
+  border-radius: 10px;
+  color: #fff;
   width: 200px;
-  height: 36px;
+  height: 40px;
   font-size: 18px;
+  font-weight: 700;
+  margin-top: 10px;
 `;

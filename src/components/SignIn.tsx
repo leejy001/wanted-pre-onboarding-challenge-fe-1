@@ -44,38 +44,42 @@ function SignIn({ isShow, handleClick }: PropsTypes) {
     e.preventDefault();
     signin(userInfo).then((res: AxiosResponse<any, any> | undefined): void => {
       if (res?.status === 200) {
-        sessionStorage.setItem("token", res?.data.token);
+        localStorage.setItem("token", res?.data.token);
         navigate("/todo");
       } else {
-        alert("오류! 관리자에게 문의해주세요");
+        alert("로그인 실패! 관리자에게 문의해주세요");
       }
     });
   };
 
   return (
     <SignInContianer isShow={isShow}>
-      <TitleWrapper>
-        <p>로그인</p>
-        <button onClick={(e) => handleClick(e)} data-route="home">
-          뒤로
-        </button>
-      </TitleWrapper>
+      <TitleWrapper>로그인</TitleWrapper>
       <form onSubmit={handleSubmit}>
-        <p>email</p>
-        <input
-          type="email"
-          onChange={onChange}
-          placeholder="이메일을 입력하세요"
-        />
-        <p>password</p>
-        <input
-          type="password"
-          onChange={onChange}
-          placeholder="비밀번호를 입력하세요"
-        />
-        <button type="submit" disabled={!btnOn}>
-          로그인 하기
-        </button>
+        <InputWrapper>
+          <p>email</p>
+          <input
+            type="email"
+            onChange={onChange}
+            placeholder="이메일을 입력하세요"
+          />
+        </InputWrapper>
+        <InputWrapper>
+          <p>password</p>
+          <input
+            type="password"
+            onChange={onChange}
+            placeholder="비밀번호를 입력하세요"
+          />
+        </InputWrapper>
+        <ButtonWrapper>
+          <button onClick={(e) => handleClick(e)} data-route="home">
+            뒤로
+          </button>
+          <button type="submit" disabled={!btnOn}>
+            로그인 하기
+          </button>
+        </ButtonWrapper>
       </form>
     </SignInContianer>
   );
@@ -84,12 +88,55 @@ function SignIn({ isShow, handleClick }: PropsTypes) {
 export default SignIn;
 
 const SignInContianer = styled.div<{ isShow: string }>`
+  margin: 0 auto;
   display: ${({ isShow }) => (isShow === "sign-in" ? "flex" : "none")};
   flex-direction: column;
-  width: 400px;
-  height: 400px;
+  justify-content: center;
+  align-items: center;
+  width: 350px;
+  height: 350px;
+  border: 2px solid #1e90ff;
+  border-radius: 20px;
 `;
 
 const TitleWrapper = styled.div`
+  color: #1e90ff;
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 10px;
+`;
+
+const InputWrapper = styled.div`
   display: flex;
+  height: 28px;
+  margin-top: 10px;
+  p {
+    width: 90px;
+    margin: 0;
+    font-size: 18px;
+    font-weight: 700;
+  }
+  input {
+    border: 2px solid #1e90ff;
+    border-radius: 5px;
+    padding-left: 10px;
+  }
+`;
+
+const ButtonWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  button {
+    width: 130px;
+    height: 36px;
+    background-color: #1e90ff;
+    border: none;
+    border-radius: 10px;
+    color: #fff;
+  }
+  button:disabled {
+    background-color: #dcdcdc;
+    color: #a9a9a9;
+  }
 `;

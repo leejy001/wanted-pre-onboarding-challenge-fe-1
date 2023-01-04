@@ -10,7 +10,7 @@ export default function ProtectedRoute({
   authenticationPath,
   outlet,
 }: ProtectedRouteProps) {
-  if (sessionStorage.getItem("token")) {
+  if (localStorage.getItem("token")) {
     return outlet;
   }
   return <Navigate to={{ pathname: authenticationPath }} />;
