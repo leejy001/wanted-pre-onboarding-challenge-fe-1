@@ -42,7 +42,7 @@ function SignUp({ isShow, handleClick }: PropsTypes) {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
-    signup(userInfo).then((res: AxiosResponse<any, any> | undefined): void => {
+    signup(userInfo).then((res: AxiosResponse<any> | undefined): void => {
       if (res?.status === 200) {
         localStorage.setItem("token", res?.data.token);
         navigate("/todo");

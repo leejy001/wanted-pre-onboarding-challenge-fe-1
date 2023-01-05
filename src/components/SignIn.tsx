@@ -42,7 +42,7 @@ function SignIn({ isShow, handleClick }: PropsTypes) {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
-    signin(userInfo).then((res: AxiosResponse<any, any> | undefined): void => {
+    signin(userInfo).then((res: AxiosResponse<any> | undefined): void => {
       if (res?.status === 200) {
         localStorage.setItem("token", res?.data.token);
         navigate("/todo");

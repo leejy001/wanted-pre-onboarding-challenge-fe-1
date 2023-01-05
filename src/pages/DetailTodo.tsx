@@ -23,13 +23,11 @@ function DetailTodo() {
   });
 
   useEffect(() => {
-    getTodo(params.id).then(
-      (res: AxiosResponse<any, any> | undefined): void => {
-        if (res?.status === 200) {
-          setItem(res?.data?.data);
-        }
+    getTodo(params.id).then((res: AxiosResponse<any> | undefined): void => {
+      if (res?.status === 200) {
+        setItem(res?.data?.data);
       }
-    );
+    });
   }, []);
 
   const onToggle = () => {

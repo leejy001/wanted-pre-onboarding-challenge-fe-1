@@ -16,7 +16,7 @@ function Todo() {
   const [items, setItems] = useState<Array<Item>>([]);
 
   useEffect(() => {
-    getTodos().then((res: AxiosResponse<any, any> | undefined): void => {
+    getTodos().then((res: AxiosResponse<any> | undefined): void => {
       if (res?.status === 200) {
         setItems(res?.data?.data);
       } else {
@@ -28,7 +28,7 @@ function Todo() {
   const removeItem = (e: React.MouseEvent, id: string) => {
     e.stopPropagation();
     removeTodo(id).then(() => {
-      getTodos().then((res: AxiosResponse<any, any> | undefined): void => {
+      getTodos().then((res: AxiosResponse<any> | undefined): void => {
         if (res?.status === 200) {
           setItems(res?.data?.data);
         } else {
@@ -122,6 +122,15 @@ const TodoItem = styled.li`
   justify-content: space-between;
   border-bottom: 1px solid #a9a9a9;
   padding: 10px 0px;
+  cursor: pointer;
+  button {
+    display: none;
+  }
+  &:hover {
+    button {
+      display: block;
+    }
+  }
 `;
 
 const TodoInfoWrapper = styled.div`
