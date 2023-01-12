@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { addTodo } from "../api/todoApi";
+import { addTodo } from "../api/todo";
 
 interface TodoInfo {
   title: string;

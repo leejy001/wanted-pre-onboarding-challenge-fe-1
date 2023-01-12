@@ -2,7 +2,7 @@ import { AxiosResponse } from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { signup } from "../api/signApi";
+import { signup } from "../api/auth";
 
 type PropsTypes = {
   isShow: string;
@@ -18,7 +18,7 @@ function SignUp({ isShow, handleClick }: PropsTypes) {
   const navigate = useNavigate();
   const [userInfo, setUserInfo] = useState<UserInfo>({
     email: "",
-    password: "",
+    password: ""
   });
   const [btnOn, setBtnOn] = useState<boolean>(false);
 

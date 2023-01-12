@@ -2,7 +2,7 @@ import { AxiosResponse } from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import styled from "styled-components";
-import { getTodos, removeTodo } from "../api/todoApi";
+import { getTodos, removeTodo } from "../api/todo";
 
 interface Item {
   id: string;

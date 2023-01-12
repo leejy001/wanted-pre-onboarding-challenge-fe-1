@@ -8,7 +8,7 @@ import PrivateRoute, { ProtectedRouteProps } from "./PrivateRoute";
 
 function App() {
   const defaultProtectedRouteProps: Omit<ProtectedRouteProps, "outlet"> = {
-    authenticationPath: "/auth",
+    authenticationPath: "/auth"
   };
 
   return (

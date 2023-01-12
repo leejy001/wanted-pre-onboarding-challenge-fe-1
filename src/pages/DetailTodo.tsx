@@ -2,7 +2,7 @@ import { AxiosResponse } from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
-import { editTodo, getTodo } from "../api/todoApi";
+import { editTodo, getTodo } from "../api/todo";
 
 interface Item {
   id: string;
@@ -19,7 +19,7 @@ function DetailTodo() {
     id: "",
     title: "",
     content: "",
-    updatedAt: "",
+    updatedAt: ""
   });
 
   useEffect(() => {
@@ -42,7 +42,7 @@ function DetailTodo() {
     const data = {
       id: item.id,
       title: item.title,
-      content: item.content,
+      content: item.content
     };
     editTodo(data).then(() => {
       onToggle();
