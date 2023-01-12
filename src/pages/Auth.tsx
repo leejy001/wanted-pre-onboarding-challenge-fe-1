@@ -1,33 +1,27 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-type PropsTypes = {
-  isShow: string;
-  handleClick: (e: React.MouseEvent<HTMLElement>) => void;
-};
+function Auth() {
+  const navigate = useNavigate();
 
-function Home({ isShow, handleClick }: PropsTypes) {
   return (
-    <MainContainer isShow={isShow}>
+    <MainContainer>
       <TodoLogo>Todo</TodoLogo>
-      <SignButton onClick={(e) => handleClick(e)} data-route="sign-in">
-        Sign In
-      </SignButton>
-      <SignButton onClick={(e) => handleClick(e)} data-route="sign-up">
-        Sign Up
-      </SignButton>
+      <SignButton onClick={() => navigate("/auth/sign-in")}>Sign In</SignButton>
+      <SignButton onClick={() => navigate("/auth/sign-up")}>Sign Up</SignButton>
     </MainContainer>
   );
 }
 
-export default Home;
+export default Auth;
 
-const MainContainer = styled.div<{ isShow: string }>`
-  margin: 0 auto;
-  display: ${({ isShow }) => (isShow === "home" ? "flex" : "none")};
+const MainContainer = styled.div`
+  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin: 0 auto;
   width: 350px;
   height: 350px;
   border: 2px solid #1e90ff;

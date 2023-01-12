@@ -1,60 +1,64 @@
+import { AxiosResponse } from "axios";
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { AxiosResponse } from "axios";
 import styled from "styled-components";
-import { signin } from "../api/auth";
-import useForm from "../hooks/useForm";
+import { signup } from "../api/auth";
 import useError from "../hooks/useError";
-import { SignInFormType } from "../types/sign";
-import { SignInErrorType } from "../types/error";
-import { isEmailValidate, isPasswordValidate } from "../util/validate";
-import SignInput from "./SignInput";
+import useForm from "../hooks/useForm";
+import { SignUpFormType } from "../types/sign";
+import { SignUpErrorType } from "../types/error";
+import SignInput from "../components/SignInput";
 import { ERROR } from "../util/constants";
+import { isEmailValidate, isPasswordValidate } from "../util/validate";
 
-type PropsTypes = {
-  isShow: string;
-  handleClick: (e: React.MouseEvent<HTMLElement>) => void;
-};
-
-function SignIn({ isShow, handleClick }: PropsTypes) {
+function SignUp() {
   const navigate = useNavigate();
-  const [{ email, password }, handleChange] = useForm<SignInFormType>({
-    email: "",
-    password: ""
-  });
+  const [{ email, password, confirmPassword }, handleChange] =
+    useForm<SignUpFormType>({
+      email: "",
+      password: "",
+      confirmPassword: ""
+    });
 
-  const [isError, setError] = useError<SignInErrorType>({
+  const [isError, setError] = useError<SignUpErrorType>({
     email: false,
     password: false,
-    signIn: false
+    confirmPassword: false,
+    signUp: false
   });
 
   const isFormValidate = () => {
     return [
       setError("email", !isEmailValidate(email)),
-      setError("password", !isPasswordValidate(password))
+      setError("password", !isPasswordValidate(password)),
+      setError("confirmPassword", password !== confirmPassword)
     ];
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
+    console.log(1, isError);
     if (!isFormValidate().includes(true)) {
-      signin({ email, password }).then(
+      console.log(2, isError);
+      signup({ email, password }).then(
         (res: AxiosResponse<any> | undefined): void => {
           if (res?.status === 200) {
             localStorage.setItem("token", res?.data.token);
             navigate("/todo");
           } else {
-            setError("signIn", true);
+            setError("signUp", true);
           }
         }
       );
     }
+    console.log(3, isError);
   };
 
   return (
-    <SignInContianer isShow={isShow}>
-      <TitleWrapper>로그인</TitleWrapper>
+    <SignUpContainer>
+      <TitleWrapper>
+        <p>회원가입</p>
+      </TitleWrapper>
       <form onSubmit={handleSubmit}>
         <SignInput
           inputTitle="이메일"
@@ -62,7 +66,7 @@ function SignIn({ isShow, handleClick }: PropsTypes) {
           handleChange={handleChange}
           placeholder="이메일을 입력하세요"
           errorMessage={
-            isError.email ? ERROR.EMAIL : isError.signIn ? ERROR.SIGN_IN : ""
+            isError.email ? ERROR.EMAIL : isError.signUp ? ERROR.SIGN_UP : ""
           }
         />
         <SignInput
@@ -73,31 +77,44 @@ function SignIn({ isShow, handleClick }: PropsTypes) {
           errorMessage={
             isError.password
               ? ERROR.PASSWORD
-              : isError.signIn
-              ? ERROR.SIGN_IN
+              : isError.confirmPassword
+              ? ERROR.PASSWORD_MATH
+              : ""
+          }
+        />
+        <SignInput
+          inputTitle="비밀번호 확인"
+          inputName="confirmPassword"
+          handleChange={handleChange}
+          placeholder="비밀번호를 한번더 입력하세요"
+          errorMessage={
+            isError.password
+              ? ERROR.PASSWORD
+              : isError.confirmPassword
+              ? ERROR.PASSWORD_MATH
               : ""
           }
         />
         <ButtonWrapper>
-          <button onClick={(e) => handleClick(e)} data-route="home">
+          <button onClick={() => navigate(-1)} data-route="home">
             뒤로
           </button>
-          <button type="submit">로그인 하기</button>
+          <button type="submit">회원가입 하기</button>
         </ButtonWrapper>
       </form>
-    </SignInContianer>
+    </SignUpContainer>
   );
 }
 
-export default SignIn;
+export default SignUp;
 
-const SignInContianer = styled.div<{ isShow: string }>`
+const SignUpContainer = styled.div`
   margin: 0 auto;
-  display: ${({ isShow }) => (isShow === "sign-in" ? "flex" : "none")};
+  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 350px;
+  width: 400px;
   height: 350px;
   border: 2px solid #1e90ff;
   border-radius: 20px;
@@ -110,37 +127,17 @@ const TitleWrapper = styled.div`
   margin-bottom: 10px;
 `;
 
-const InputWrapper = styled.div`
-  display: flex;
-  height: 28px;
-  margin-top: 10px;
-  p {
-    width: 90px;
-    margin: 0;
-    font-size: 18px;
-    font-weight: 700;
-  }
-  input {
-    border: 2px solid #1e90ff;
-    border-radius: 5px;
-    padding-left: 10px;
-  }
-`;
-
 const ButtonWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   margin-top: 20px;
   button {
-    width: 130px;
+    width: 150px;
     height: 36px;
     background-color: #1e90ff;
     border: none;
     border-radius: 10px;
     color: #fff;
-  }
-  button:disabled {
-    background-color: #dcdcdc;
-    color: #a9a9a9;
+    padding: 0;
   }
 `;

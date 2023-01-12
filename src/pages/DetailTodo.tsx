@@ -3,24 +3,21 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { editTodo, getTodo } from "../api/todo";
+import { TodoType } from "../types/todo";
 
-interface Item {
-  id: string;
-  title: string;
-  content: string;
-  updatedAt: string;
-}
+const initialState = {
+  id: "",
+  title: "",
+  content: "",
+  createdAt: "",
+  updatedAt: ""
+};
 
 function DetailTodo() {
   const navigate = useNavigate();
   const params = useParams();
   const [isEdit, setIsEdit] = useState<boolean>(false);
-  const [item, setItem] = useState<Item>({
-    id: "",
-    title: "",
-    content: "",
-    updatedAt: ""
-  });
+  const [item, setItem] = useState<TodoType>(initialState);
 
   useEffect(() => {
     getTodo(params.id).then((res: AxiosResponse<any> | undefined): void => {
@@ -28,6 +25,9 @@ function DetailTodo() {
         setItem(res?.data?.data);
       }
     });
+    return () => {
+      setItem(initialState);
+    };
   }, []);
 
   const onToggle = () => {
@@ -38,7 +38,7 @@ function DetailTodo() {
     setItem({ ...item, [e.target.name]: e.target.value });
   };
 
-  const handleEdit = (item: Item) => {
+  const handleEdit = (item: TodoType) => {
     const data = {
       id: item.id,
       title: item.title,

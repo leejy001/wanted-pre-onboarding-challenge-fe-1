@@ -1,9 +1,9 @@
 import React from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
-import Main from "./pages/Main";
+import Auth from "./pages/Auth";
+import SignIn from "./pages/SignIn";
+import SignUp from "./pages/SignUp";
 import Todo from "./pages/Todo";
-import AddTodo from "./pages/AddTodo";
-import DetailTodo from "./pages/DetailTodo";
 import PrivateRoute, { ProtectedRouteProps } from "./PrivateRoute";
 
 function App() {
@@ -15,32 +15,15 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Navigate replace to="/auth" />} />
-        <Route path="/auth" element={<Main />} />
+        <Route path="/auth" element={<Auth />} />
+        <Route path="/auth/sign-in" element={<SignIn />} />
+        <Route path="/auth/sign-up" element={<SignUp />} />
         <Route
           path="/todo"
           element={
             <PrivateRoute {...defaultProtectedRouteProps} outlet={<Todo />} />
           }
         />
-        <Route
-          path="/todo/add"
-          element={
-            <PrivateRoute
-              {...defaultProtectedRouteProps}
-              outlet={<AddTodo />}
-            />
-          }
-        />
-        <Route
-          path="/todo/:id"
-          element={
-            <PrivateRoute
-              {...defaultProtectedRouteProps}
-              outlet={<DetailTodo />}
-            />
-          }
-        />
-        <Route path="/todo/edit/:id" />
       </Routes>
     </BrowserRouter>
   );
