@@ -1,84 +1,88 @@
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import { AxiosResponse } from "axios";
 import styled from "styled-components";
 import { signin } from "../api/auth";
+import useForm from "../hooks/useForm";
+import useError from "../hooks/useError";
+import { SignInFormType } from "../types/sign";
+import { SignInErrorType } from "../types/error";
+import { isEmailValidate, isPasswordValidate } from "../util/validate";
+import SignInput from "./SignInput";
+import { ERROR } from "../util/constants";
 
 type PropsTypes = {
   isShow: string;
   handleClick: (e: React.MouseEvent<HTMLElement>) => void;
 };
 
-interface UserInfo {
-  email: string;
-  password: string;
-}
-
 function SignIn({ isShow, handleClick }: PropsTypes) {
   const navigate = useNavigate();
-  const [userInfo, setUserInfo] = useState<UserInfo>({
+  const [{ email, password }, handleChange] = useForm<SignInFormType>({
     email: "",
     password: ""
   });
-  const [btnOn, setBtnOn] = useState<boolean>(false);
 
-  const checkRegex = (userInfo: UserInfo) => {
-    if (!userInfo.email || !userInfo.password) return false;
-    const regEmail =
-      /^[0-9a-zA-Z]([-_]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
-    if (regEmail.test(userInfo.email) === true && userInfo.password.length >= 8)
-      return true;
-    return false;
-  };
+  const [isError, setError] = useError<SignInErrorType>({
+    email: false,
+    password: false,
+    signIn: false
+  });
 
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    setUserInfo({ ...userInfo, [e.target.type]: e.target.value });
-    if (checkRegex(userInfo)) {
-      setBtnOn(true);
-      return;
-    }
-    setBtnOn(false);
+  const isFormValidate = () => {
+    return [
+      setError("email", !isEmailValidate(email)),
+      setError("password", !isPasswordValidate(password))
+    ];
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
-    signin(userInfo).then((res: AxiosResponse<any> | undefined): void => {
-      if (res?.status === 200) {
-        localStorage.setItem("token", res?.data.token);
-        navigate("/todo");
-      } else {
-        alert("로그인 실패! 관리자에게 문의해주세요");
-      }
-    });
+    if (!isFormValidate().includes(true)) {
+      signin({ email, password }).then(
+        (res: AxiosResponse<any> | undefined): void => {
+          if (res?.status === 200) {
+            localStorage.setItem("token", res?.data.token);
+            navigate("/todo");
+          } else {
+            setError("signIn", true);
+          }
+        }
+      );
+    }
   };
 
   return (
     <SignInContianer isShow={isShow}>
       <TitleWrapper>로그인</TitleWrapper>
       <form onSubmit={handleSubmit}>
-        <InputWrapper>
-          <p>email</p>
-          <input
-            type="email"
-            onChange={onChange}
-            placeholder="이메일을 입력하세요"
-          />
-        </InputWrapper>
-        <InputWrapper>
-          <p>password</p>
-          <input
-            type="password"
-            onChange={onChange}
-            placeholder="비밀번호를 입력하세요"
-          />
-        </InputWrapper>
+        <SignInput
+          inputTitle="이메일"
+          inputName="email"
+          handleChange={handleChange}
+          placeholder="이메일을 입력하세요"
+          errorMessage={
+            isError.email ? ERROR.EMAIL : isError.signIn ? ERROR.SIGN_IN : ""
+          }
+        />
+        <SignInput
+          inputTitle="비밀번호"
+          inputName="password"
+          handleChange={handleChange}
+          placeholder="비밀번호를 입력하세요"
+          errorMessage={
+            isError.password
+              ? ERROR.PASSWORD
+              : isError.signIn
+              ? ERROR.SIGN_IN
+              : ""
+          }
+        />
         <ButtonWrapper>
           <button onClick={(e) => handleClick(e)} data-route="home">
             뒤로
           </button>
-          <button type="submit" disabled={!btnOn}>
-            로그인 하기
-          </button>
+          <button type="submit">로그인 하기</button>
         </ButtonWrapper>
       </form>
     </SignInContianer>

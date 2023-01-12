@@ -1,55 +1,62 @@
 import { AxiosResponse } from "axios";
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { signup } from "../api/auth";
+import useError from "../hooks/useError";
+import useForm from "../hooks/useForm";
+import { SignUpFormType } from "../types/sign";
+import { SignUpErrorType } from "../types/error";
+import SignInput from "./SignInput";
+import { ERROR } from "../util/constants";
+import { isEmailValidate, isPasswordValidate } from "../util/validate";
 
 type PropsTypes = {
   isShow: string;
   handleClick: (e: React.MouseEvent<HTMLElement>) => void;
 };
 
-interface UserInfo {
-  email: string;
-  password: string;
-}
-
 function SignUp({ isShow, handleClick }: PropsTypes) {
   const navigate = useNavigate();
-  const [userInfo, setUserInfo] = useState<UserInfo>({
-    email: "",
-    password: ""
+  const [{ email, password, confirmPassword }, handleChange] =
+    useForm<SignUpFormType>({
+      email: "",
+      password: "",
+      confirmPassword: ""
+    });
+
+  const [isError, setError] = useError<SignUpErrorType>({
+    email: false,
+    password: false,
+    confirmPassword: false,
+    signUp: false
   });
-  const [btnOn, setBtnOn] = useState<boolean>(false);
 
-  const checkRegex = (userInfo: UserInfo) => {
-    if (!userInfo.email || !userInfo.password) return false;
-    const regEmail =
-      /^[0-9a-zA-Z]([-_]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
-    if (regEmail.test(userInfo.email) === true && userInfo.password.length >= 8)
-      return true;
-    return false;
-  };
-
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    setUserInfo({ ...userInfo, [e.target.type]: e.target.value });
-    if (checkRegex(userInfo)) {
-      setBtnOn(true);
-      return;
-    }
-    setBtnOn(false);
+  const isFormValidate = () => {
+    return [
+      setError("email", !isEmailValidate(email)),
+      setError("password", !isPasswordValidate(password)),
+      setError("confirmPassword", password !== confirmPassword)
+    ];
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
-    signup(userInfo).then((res: AxiosResponse<any> | undefined): void => {
-      if (res?.status === 200) {
-        localStorage.setItem("token", res?.data.token);
-        navigate("/todo");
-      } else {
-        alert("오류! 관리자에게 문의해주세요");
-      }
-    });
+    console.log(1, isError);
+    if (!isFormValidate().includes(true)) {
+      console.log(2, isError);
+      signup({ email, password }).then(
+        (res: AxiosResponse<any> | undefined): void => {
+          if (res?.status === 200) {
+            localStorage.setItem("token", res?.data.token);
+            navigate("/todo");
+          } else {
+            setError("signUp", true);
+          }
+        }
+      );
+    }
+    console.log(3, isError);
   };
 
   return (
@@ -58,29 +65,46 @@ function SignUp({ isShow, handleClick }: PropsTypes) {
         <p>회원가입</p>
       </TitleWrapper>
       <form onSubmit={handleSubmit}>
-        <InputWrapper>
-          <p>email</p>
-          <input
-            type="email"
-            onChange={onChange}
-            placeholder="이메일을 입력하세요"
-          />
-        </InputWrapper>
-        <InputWrapper>
-          <p>password</p>
-          <input
-            type="password"
-            onChange={onChange}
-            placeholder="비밀번호를 입력하세요"
-          />
-        </InputWrapper>
+        <SignInput
+          inputTitle="이메일"
+          inputName="email"
+          handleChange={handleChange}
+          placeholder="이메일을 입력하세요"
+          errorMessage={
+            isError.email ? ERROR.EMAIL : isError.signUp ? ERROR.SIGN_UP : ""
+          }
+        />
+        <SignInput
+          inputTitle="비밀번호"
+          inputName="password"
+          handleChange={handleChange}
+          placeholder="비밀번호를 입력하세요"
+          errorMessage={
+            isError.password
+              ? ERROR.PASSWORD
+              : isError.confirmPassword
+              ? ERROR.PASSWORD_MATH
+              : ""
+          }
+        />
+        <SignInput
+          inputTitle="비밀번호 확인"
+          inputName="confirmPassword"
+          handleChange={handleChange}
+          placeholder="비밀번호를 한번더 입력하세요"
+          errorMessage={
+            isError.password
+              ? ERROR.PASSWORD
+              : isError.confirmPassword
+              ? ERROR.PASSWORD_MATH
+              : ""
+          }
+        />
         <ButtonWrapper>
           <button onClick={(e) => handleClick(e)} data-route="home">
             뒤로
           </button>
-          <button type="submit" disabled={!btnOn}>
-            회원가입 하기
-          </button>
+          <button type="submit">회원가입 하기</button>
         </ButtonWrapper>
       </form>
     </SignUpContainer>
@@ -95,7 +119,7 @@ const SignUpContainer = styled.div<{ isShow: string }>`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 350px;
+  width: 400px;
   height: 350px;
   border: 2px solid #1e90ff;
   border-radius: 20px;
@@ -108,29 +132,12 @@ const TitleWrapper = styled.div`
   margin-bottom: 10px;
 `;
 
-const InputWrapper = styled.div`
-  display: flex;
-  height: 28px;
-  margin-top: 10px;
-  p {
-    width: 90px;
-    margin: 0;
-    font-size: 18px;
-    font-weight: 700;
-  }
-  input {
-    border: 2px solid #1e90ff;
-    border-radius: 5px;
-    padding-left: 10px;
-  }
-`;
-
 const ButtonWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   margin-top: 20px;
   button {
-    width: 130px;
+    width: 150px;
     height: 36px;
     background-color: #1e90ff;
     border: none;
