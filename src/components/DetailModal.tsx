@@ -2,24 +2,13 @@ import { AxiosResponse } from "axios";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { getTodo } from "../api/todo";
+import { BasicModalType } from "../types/modal";
 import { TodoType } from "../types/todo";
+import { initialTodoState } from "../util/state";
 
-interface PropsType {
-  todoId: string;
-  setToggle: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-const initialState = {
-  id: "",
-  title: "",
-  content: "",
-  createdAt: "",
-  updatedAt: ""
-};
-
-function DetailModal({ todoId, setToggle }: PropsType) {
+function DetailModal({ todoId, setToggle }: BasicModalType) {
   const [{ title, content, updatedAt }, setItem] =
-    useState<TodoType>(initialState);
+    useState<TodoType>(initialTodoState);
 
   useEffect(() => {
     getTodo(todoId).then((res: AxiosResponse<any> | undefined): void => {
@@ -28,7 +17,7 @@ function DetailModal({ todoId, setToggle }: PropsType) {
       }
     });
     return () => {
-      setItem(initialState);
+      setItem(initialTodoState);
     };
   }, []);
 

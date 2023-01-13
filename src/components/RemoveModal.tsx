@@ -1,13 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 import { removeTodo } from "../api/todo";
+import { BasicModalType } from "../types/modal";
 
-interface PropsType {
-  todoId: string;
-  setToggle: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-function RemoveModal({ todoId, setToggle }: PropsType) {
+function RemoveModal({ todoId, setToggle }: BasicModalType) {
   const handleRemoveTodo = () => {
     removeTodo(todoId).then(() => {
       setToggle(false);

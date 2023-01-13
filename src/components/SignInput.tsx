@@ -1,15 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-
-interface PropsType {
-  inputTitle: string;
-  inputName: string;
-  handleChange: (
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => void;
-  placeholder: string;
-  errorMessage: string;
-}
+import { SignInputType } from "../types/sign";
 
 function SignInput({
   inputTitle,
@@ -17,7 +8,7 @@ function SignInput({
   handleChange,
   placeholder,
   errorMessage
-}: PropsType) {
+}: SignInputType) {
   return (
     <InputWrapper>
       <InputTitle>{inputTitle}</InputTitle>

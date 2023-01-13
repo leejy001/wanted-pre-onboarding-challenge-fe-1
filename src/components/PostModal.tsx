@@ -3,25 +3,13 @@ import React, { useCallback, useEffect } from "react";
 import styled from "styled-components";
 import { addTodo, editTodo, getTodo } from "../api/todo";
 import useForm from "../hooks/useForm";
+import { PostModalType } from "../types/modal";
 import { TodoType } from "../types/todo";
+import { initialTodoState } from "../util/state";
 
-interface PropsType {
-  todoId: string;
-  modalType: string;
-  setToggle: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-const initialState = {
-  id: "",
-  title: "",
-  content: "",
-  createdAt: "",
-  updatedAt: ""
-};
-
-function PostModal({ todoId, modalType, setToggle }: PropsType) {
+function PostModal({ todoId, modalType, setToggle }: PostModalType) {
   const [{ id, title, content, createdAt, updatedAt }, handleChange, setState] =
-    useForm<TodoType>(initialState);
+    useForm<TodoType>(initialTodoState);
 
   useEffect(() => {
     if (modalType === "edit") {
@@ -32,7 +20,7 @@ function PostModal({ todoId, modalType, setToggle }: PropsType) {
       });
     }
     return () => {
-      setState(initialState);
+      setState(initialTodoState);
     };
   }, []);
 

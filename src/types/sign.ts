@@ -8,3 +8,13 @@ export interface SignUpFormType {
   password: string;
   confirmPassword: string;
 }
+
+export interface SignInputType {
+  inputTitle: string;
+  inputName: string;
+  handleChange: (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => void;
+  placeholder: string;
+  errorMessage: string;
+}
