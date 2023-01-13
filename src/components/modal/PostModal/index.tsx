@@ -1,15 +1,15 @@
 import { AxiosResponse } from "axios";
 import React, { useCallback, useEffect } from "react";
-import { addTodo, editTodo, getTodo } from "../../../api/todo";
-import useForm from "../../../hooks/useForm";
-import { PostModalType } from "../../../types/modal";
-import { TodoType } from "../../../types/todo";
-import { initialTodoState } from "../../../util/state";
+import { addTodo, editTodo, getTodo } from "api/todo";
+import useForm from "hooks/useForm";
+import { PostModalType } from "types/modal";
+import { TodoType } from "types/todo";
+import { initialTodoState } from "util/state";
 import Modal from "../../common/Modal";
 import { ModalTitle, ModalForm, ConfirmButton } from "./style";
 
 function PostModal({ todoId, isClose, modalType, setToggle }: PostModalType) {
-  const [{ id, title, content, createdAt, updatedAt }, handleChange, setState] =
+  const [{ id, title, content, updatedAt }, handleChange, setState] =
     useForm<TodoType>(initialTodoState);
 
   useEffect(() => {

@@ -1,9 +1,9 @@
 import { AxiosResponse } from "axios";
 import React, { useEffect, useState } from "react";
-import { getTodo } from "../../../api/todo";
-import { BasicModalType } from "../../../types/modal";
-import { TodoType } from "../../../types/todo";
-import { initialTodoState } from "../../../util/state";
+import { getTodo } from "api/todo";
+import { BasicModalType } from "types/modal";
+import { TodoType } from "types/todo";
+import { initialTodoState } from "util/state";
 import Modal from "../../common/Modal";
 import { ModalTitle, InfoTitle, InfoContent } from "./style";
 

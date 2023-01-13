@@ -1,5 +1,5 @@
 import React, { PropsWithChildren } from "react";
-import { BasicModalType } from "../../../types/modal";
+import { BasicModalType } from "types/modal";
 import { ModalContainer, CloseButton } from "./style";
 
 function Modal({

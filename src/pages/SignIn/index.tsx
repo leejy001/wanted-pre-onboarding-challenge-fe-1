@@ -1,14 +1,14 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { AxiosResponse } from "axios";
-import { signin } from "../../api/auth";
-import useForm from "../../hooks/useForm";
-import useError from "../../hooks/useError";
-import { SignInFormType } from "../../types/sign";
-import { SignInErrorType } from "../../types/error";
-import { isEmailValidate, isPasswordValidate } from "../../util/validate";
-import SignInput from "../../components/input/SignInput";
-import { ERROR } from "../../util/constants";
+import { signin } from "api/auth";
+import useForm from "hooks/useForm";
+import useError from "hooks/useError";
+import { SignInFormType } from "types/sign";
+import { SignInErrorType } from "types/error";
+import { isEmailValidate, isPasswordValidate } from "util/validate";
+import SignInput from "components/input/SignInput";
+import { ERROR } from "util/constants";
 import { SignInContianer, Title, ButtonWrapper } from "./style";
 
 function SignIn() {

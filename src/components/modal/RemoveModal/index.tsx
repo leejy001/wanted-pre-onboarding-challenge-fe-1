@@ -1,6 +1,6 @@
 import React from "react";
-import { removeTodo } from "../../../api/todo";
-import { BasicModalType } from "../../../types/modal";
+import { removeTodo } from "api/todo";
+import { BasicModalType } from "types/modal";
 import Modal from "../../common/Modal";
 import { ModalTitle, ButtonWrapper } from "./style";
 

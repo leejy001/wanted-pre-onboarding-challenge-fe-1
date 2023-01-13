@@ -1,5 +1,5 @@
 import React from "react";
-import { SignInputType } from "../../../types/sign";
+import { SignInputType } from "types/sign";
 import { InputWrapper, InputTitle, InputBody } from "./style";
 
 function SignInput({

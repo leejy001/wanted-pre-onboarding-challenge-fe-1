@@ -1,11 +1,11 @@
 import { AxiosResponse } from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
-import { getTodos } from "../../api/todo";
-import RemoveModal from "../../components/modal/RemoveModal";
-import DetailModal from "../../components/modal/DetailModal";
-import PostModal from "../../components/modal/PostModal";
-import { TodoType } from "../../types/todo";
+import { getTodos } from "api/todo";
+import RemoveModal from "components/modal/RemoveModal";
+import DetailModal from "components/modal/DetailModal";
+import PostModal from "components/modal/PostModal";
+import { TodoType } from "types/todo";
 import {
   TodoContainer,
   TodoTitle,
