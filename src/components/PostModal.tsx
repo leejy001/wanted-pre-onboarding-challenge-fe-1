@@ -1,11 +1,12 @@
+import { AxiosResponse } from "axios";
 import React, { useCallback, useEffect } from "react";
 import styled from "styled-components";
-import { addTodo, editTodo } from "../api/todo";
+import { addTodo, editTodo, getTodo } from "../api/todo";
 import useForm from "../hooks/useForm";
 import { TodoType } from "../types/todo";
 
 interface PropsType {
-  todo: TodoType | undefined;
+  todoId: string;
   modalType: string;
   setToggle: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -18,19 +19,18 @@ const initialState = {
   updatedAt: ""
 };
 
-function PostModal({ todo, modalType, setToggle }: PropsType) {
+function PostModal({ todoId, modalType, setToggle }: PropsType) {
   const [{ id, title, content, createdAt, updatedAt }, handleChange, setState] =
     useForm<TodoType>(initialState);
 
   useEffect(() => {
-    if (todo)
-      setState({
-        id: todo.id,
-        title: todo.title,
-        content: todo.content,
-        createdAt: todo.createdAt,
-        updatedAt: todo.updatedAt
+    if (modalType === "edit") {
+      getTodo(todoId).then((res: AxiosResponse<any> | undefined): void => {
+        if (res?.status === 200) {
+          setState(res?.data?.data);
+        }
       });
+    }
     return () => {
       setState(initialState);
     };

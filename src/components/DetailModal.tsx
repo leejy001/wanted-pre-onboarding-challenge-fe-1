@@ -5,7 +5,7 @@ import { getTodo } from "../api/todo";
 import { TodoType } from "../types/todo";
 
 interface PropsType {
-  id: string;
+  todoId: string;
   setToggle: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
@@ -17,12 +17,12 @@ const initialState = {
   updatedAt: ""
 };
 
-function DetailModal({ id, setToggle }: PropsType) {
+function DetailModal({ todoId, setToggle }: PropsType) {
   const [{ title, content, updatedAt }, setItem] =
     useState<TodoType>(initialState);
 
   useEffect(() => {
-    getTodo(id).then((res: AxiosResponse<any> | undefined): void => {
+    getTodo(todoId).then((res: AxiosResponse<any> | undefined): void => {
       if (res?.status === 200) {
         setItem(res?.data?.data);
       }
