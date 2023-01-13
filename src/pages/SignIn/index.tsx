@@ -1,15 +1,15 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { AxiosResponse } from "axios";
-import styled from "styled-components";
-import { signin } from "../api/auth";
-import useForm from "../hooks/useForm";
-import useError from "../hooks/useError";
-import { SignInFormType } from "../types/sign";
-import { SignInErrorType } from "../types/error";
-import { isEmailValidate, isPasswordValidate } from "../util/validate";
-import SignInput from "../components/SignInput";
-import { ERROR } from "../util/constants";
+import { signin } from "../../api/auth";
+import useForm from "../../hooks/useForm";
+import useError from "../../hooks/useError";
+import { SignInFormType } from "../../types/sign";
+import { SignInErrorType } from "../../types/error";
+import { isEmailValidate, isPasswordValidate } from "../../util/validate";
+import SignInput from "../../components/input/SignInput";
+import { ERROR } from "../../util/constants";
+import { SignInContianer, Title, ButtonWrapper } from "./style";
 
 function SignIn() {
   const navigate = useNavigate();
@@ -49,7 +49,7 @@ function SignIn() {
 
   return (
     <SignInContianer>
-      <TitleWrapper>로그인</TitleWrapper>
+      <Title>로그인</Title>
       <form onSubmit={handleSubmit}>
         <SignInput
           inputTitle="이메일"
@@ -83,36 +83,3 @@ function SignIn() {
 }
 
 export default SignIn;
-
-const SignInContianer = styled.div`
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 350px;
-  height: 350px;
-  border: 2px solid #1e90ff;
-  border-radius: 20px;
-`;
-
-const TitleWrapper = styled.div`
-  color: #1e90ff;
-  font-size: 28px;
-  font-weight: 700;
-  margin-bottom: 10px;
-`;
-
-const ButtonWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-  margin-top: 20px;
-  button {
-    width: 130px;
-    height: 36px;
-    background-color: #1e90ff;
-    border: none;
-    border-radius: 10px;
-    color: #fff;
-  }
-`;

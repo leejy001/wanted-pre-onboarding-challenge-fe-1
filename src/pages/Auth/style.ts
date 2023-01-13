@@ -1,22 +1,6 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-function Auth() {
-  const navigate = useNavigate();
-
-  return (
-    <MainContainer>
-      <TodoLogo>Todo</TodoLogo>
-      <SignButton onClick={() => navigate("/auth/sign-in")}>Sign In</SignButton>
-      <SignButton onClick={() => navigate("/auth/sign-up")}>Sign Up</SignButton>
-    </MainContainer>
-  );
-}
-
-export default Auth;
-
-const MainContainer = styled.div`
+export const MainContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -28,14 +12,14 @@ const MainContainer = styled.div`
   border-radius: 20px;
 `;
 
-const TodoLogo = styled.div`
+export const TodoLogo = styled.div`
   color: #1e90ff;
   font-size: 40px;
   font-weight: 700;
   margin-bottom: 20px;
 `;
 
-const SignButton = styled.button`
+export const SignButton = styled.button`
   background-color: #1e90ff;
   border: none;
   border-radius: 10px;

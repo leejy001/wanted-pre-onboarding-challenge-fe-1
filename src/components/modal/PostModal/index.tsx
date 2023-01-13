@@ -1,13 +1,14 @@
 import { AxiosResponse } from "axios";
 import React, { useCallback, useEffect } from "react";
-import styled from "styled-components";
-import { addTodo, editTodo, getTodo } from "../api/todo";
-import useForm from "../hooks/useForm";
-import { PostModalType } from "../types/modal";
-import { TodoType } from "../types/todo";
-import { initialTodoState } from "../util/state";
+import { addTodo, editTodo, getTodo } from "../../../api/todo";
+import useForm from "../../../hooks/useForm";
+import { PostModalType } from "../../../types/modal";
+import { TodoType } from "../../../types/todo";
+import { initialTodoState } from "../../../util/state";
+import Modal from "../../common/Modal";
+import { ModalTitle, ModalForm, ConfirmButton } from "./style";
 
-function PostModal({ todoId, modalType, setToggle }: PostModalType) {
+function PostModal({ todoId, isClose, modalType, setToggle }: PostModalType) {
   const [{ id, title, content, createdAt, updatedAt }, handleChange, setState] =
     useForm<TodoType>(initialTodoState);
 
@@ -43,8 +44,7 @@ function PostModal({ todoId, modalType, setToggle }: PostModalType) {
   );
 
   return (
-    <ModalContainer>
-      <CloseButton onClick={() => setToggle(false)}>X</CloseButton>
+    <Modal setToggle={setToggle} isClose={isClose}>
       <ModalTitle>
         {modalType === "add" ? "할일 추가하기" : "할일 수정하기"}
       </ModalTitle>
@@ -58,71 +58,8 @@ function PostModal({ todoId, modalType, setToggle }: PostModalType) {
         <textarea name="content" value={content} onChange={handleChange} />
         <ConfirmButton type="submit">완료</ConfirmButton>
       </ModalForm>
-    </ModalContainer>
+    </Modal>
   );
 }
 
 export default PostModal;
-
-const ModalContainer = styled.div`
-  position: fixed;
-  width: 400px;
-  background-color: white;
-  border: 2px solid #1e90ff;
-  border-radius: 10px;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  padding: 30px;
-`;
-
-const ModalTitle = styled.div`
-  text-align: center;
-  margin-bottom: 10px;
-  font-size: 24px;
-  font-weight: 700;
-  color: #1e90ff;
-`;
-
-const CloseButton = styled.button`
-  position: absolute;
-  right: 2px;
-  top: 2px;
-  width: 40px;
-  height: 40px;
-  background-color: white;
-  border: none;
-  color: #1e90ff;
-`;
-
-const ModalForm = styled.form`
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  p {
-    font-size: 18px;
-    font-weight: 600;
-  }
-  input[type="text"] {
-    font-size: 16px;
-    padding: 5px;
-    border: 1px solid #1e90ff;
-  }
-  textarea {
-    font-size: 16px;
-    padding: 5px;
-    height: 100px;
-    border: 1px solid #1e90ff;
-  }
-`;
-
-const ConfirmButton = styled.button`
-  width: 150px;
-  height: 36px;
-  background-color: #1e90ff;
-  border: none;
-  border-radius: 10px;
-  color: #fff;
-  padding: 0;
-  margin: 10px auto 0px;
-`;

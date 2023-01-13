@@ -1,15 +1,15 @@
 import { AxiosResponse } from "axios";
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
-import { signup } from "../api/auth";
-import useError from "../hooks/useError";
-import useForm from "../hooks/useForm";
-import { SignUpFormType } from "../types/sign";
-import { SignUpErrorType } from "../types/error";
-import SignInput from "../components/SignInput";
-import { ERROR } from "../util/constants";
-import { isEmailValidate, isPasswordValidate } from "../util/validate";
+import { signup } from "../../api/auth";
+import useError from "../../hooks/useError";
+import useForm from "../../hooks/useForm";
+import { SignUpFormType } from "../../types/sign";
+import { SignUpErrorType } from "../../types/error";
+import SignInput from "../../components/input/SignInput";
+import { ERROR } from "../../util/constants";
+import { isEmailValidate, isPasswordValidate } from "../../util/validate";
+import { SignUpContainer, Title, ButtonWrapper } from "./style";
 
 function SignUp() {
   const navigate = useNavigate();
@@ -56,9 +56,7 @@ function SignUp() {
 
   return (
     <SignUpContainer>
-      <TitleWrapper>
-        <p>회원가입</p>
-      </TitleWrapper>
+      <Title>회원가입</Title>
       <form onSubmit={handleSubmit}>
         <SignInput
           inputTitle="이메일"
@@ -107,37 +105,3 @@ function SignUp() {
 }
 
 export default SignUp;
-
-const SignUpContainer = styled.div`
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 400px;
-  height: 350px;
-  border: 2px solid #1e90ff;
-  border-radius: 20px;
-`;
-
-const TitleWrapper = styled.div`
-  color: #1e90ff;
-  font-size: 28px;
-  font-weight: 700;
-  margin-bottom: 10px;
-`;
-
-const ButtonWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-  margin-top: 20px;
-  button {
-    width: 150px;
-    height: 36px;
-    background-color: #1e90ff;
-    border: none;
-    border-radius: 10px;
-    color: #fff;
-    padding: 0;
-  }
-`;

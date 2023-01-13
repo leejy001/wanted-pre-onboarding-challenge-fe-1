@@ -1,12 +1,21 @@
 import { AxiosResponse } from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
-import styled from "styled-components";
-import { getTodos } from "../api/todo";
-import RemoveModal from "../components/RemoveModal";
-import DetailModal from "../components/DetailModal";
-import PostModal from "../components/PostModal";
-import { TodoType } from "../types/todo";
+import { getTodos } from "../../api/todo";
+import RemoveModal from "../../components/modal/RemoveModal";
+import DetailModal from "../../components/modal/DetailModal";
+import PostModal from "../../components/modal/PostModal";
+import { TodoType } from "../../types/todo";
+import {
+  TodoContainer,
+  TodoTitle,
+  LogoutButton,
+  AddContainer,
+  TodoListContainer,
+  TodoItem,
+  TodoInfoWrapper,
+  ButtonWrapper
+} from "./style";
 
 function Todo() {
   const navigate = useNavigate();
@@ -88,92 +97,19 @@ function Todo() {
       {isToggle && (
         <PostModal
           todoId={todoId}
+          isClose={true}
           modalType={modalType}
           setToggle={setToggle}
         />
       )}
-      {isDetail && <DetailModal todoId={todoId} setToggle={setDetail} />}
-      {isRemove && <RemoveModal todoId={todoId} setToggle={setRemove} />}
+      {isDetail && (
+        <DetailModal todoId={todoId} isClose={true} setToggle={setDetail} />
+      )}
+      {isRemove && (
+        <RemoveModal todoId={todoId} isClose={false} setToggle={setRemove} />
+      )}
     </>
   );
 }
 
 export default Todo;
-
-const TodoContainer = styled.div`
-  position: relative;
-  margin: 0 auto;
-  width: 500px;
-  border: 2px solid #1e90ff;
-  border-radius: 20px;
-  padding: 20px;
-`;
-
-const TodoTitle = styled.p`
-  font-size: 36px;
-  font-weight: 700;
-  color: #1e90ff;
-  margin-bottom: 10px;
-`;
-
-const LogoutButton = styled.button`
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  background-color: white;
-  border: 2px solid #1e90ff;
-  border-radius: 5px;
-  color: #1e90ff;
-`;
-
-const AddContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  p {
-    font-size: 16px;
-    font-weight: 700;
-  }
-  button {
-    background-color: white;
-    border: 2px solid #1e90ff;
-    border-radius: 5px;
-    color: #1e90ff;
-  }
-`;
-
-const TodoListContainer = styled.ul`
-  display: flex;
-  flex-direction: column;
-`;
-
-const TodoItem = styled.li`
-  display: flex;
-  justify-content: space-between;
-  border-bottom: 1px solid #a9a9a9;
-  padding: 10px 0px;
-  cursor: pointer;
-  &:hover {
-    button {
-      display: block;
-    }
-  }
-`;
-
-const TodoInfoWrapper = styled.div`
-  p {
-    padding-top: 10px;
-    font-size: 16px;
-    font-weight: 700;
-  }
-`;
-
-const ButtonWrapper = styled.div`
-  display: flex;
-  button {
-    display: none;
-    background-color: white;
-    border: none;
-    font-size: 30px;
-  }
-`;

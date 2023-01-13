@@ -1,5 +1,6 @@
 export interface BasicModalType {
-  todoId: string;
+  todoId?: string;
+  isClose: boolean;
   setToggle: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
