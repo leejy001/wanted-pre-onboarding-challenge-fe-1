@@ -3,14 +3,18 @@ import axios from "axios";
 export const getTodos = async () => {
   const headers = {
     "Content-Type": "application/json",
-    authorization: localStorage.getItem("token"),
+    authorization: localStorage.getItem("token")
   };
   try {
     const response = await axios.get(
       process.env.REACT_APP_BASIC_URL + "/todos",
       { headers: headers }
     );
-    return response;
+    const result = {
+      status: response.status,
+      data: response.data?.data
+    };
+    return result;
   } catch (error) {
     console.log(error);
   }
@@ -19,14 +23,18 @@ export const getTodos = async () => {
 export const getTodo = async (id: string | undefined) => {
   const headers = {
     "Content-Type": "application/json",
-    authorization: localStorage.getItem("token"),
+    authorization: localStorage.getItem("token")
   };
   try {
     const response = await axios.get(
       process.env.REACT_APP_BASIC_URL + `/todos/${id}`,
       { headers: headers }
     );
-    return response;
+    const result = {
+      status: response.status,
+      data: response.data?.data
+    };
+    return result;
   } catch (error) {
     console.log(error);
   }
@@ -35,7 +43,7 @@ export const getTodo = async (id: string | undefined) => {
 export const addTodo = async (data: { title: string; content: string }) => {
   const headers = {
     "Content-Type": "application/json",
-    authorization: localStorage.getItem("token"),
+    authorization: localStorage.getItem("token")
   };
   try {
     const response = await axios.post(
@@ -43,7 +51,11 @@ export const addTodo = async (data: { title: string; content: string }) => {
       data,
       { headers: headers }
     );
-    return response;
+    const result = {
+      status: response.status,
+      data: response.data?.data
+    };
+    return result;
   } catch (error) {
     console.log(error);
   }
@@ -56,11 +68,11 @@ export const editTodo = async (data: {
 }) => {
   const headers = {
     "Content-Type": "application/json",
-    authorization: localStorage.getItem("token"),
+    authorization: localStorage.getItem("token")
   };
   const body = {
     title: data.title,
-    content: data.content,
+    content: data.content
   };
   try {
     const response = await axios.put(
@@ -68,7 +80,11 @@ export const editTodo = async (data: {
       body,
       { headers: headers }
     );
-    return response;
+    const result = {
+      status: response.status,
+      data: response.data?.data
+    };
+    return result;
   } catch (error) {
     console.log(error);
   }
@@ -77,14 +93,18 @@ export const editTodo = async (data: {
 export const removeTodo = async (id: string) => {
   const headers = {
     "Content-Type": "application/json",
-    authorization: localStorage.getItem("token"),
+    authorization: localStorage.getItem("token")
   };
   try {
     const response = await axios.delete(
       process.env.REACT_APP_BASIC_URL + `/todos/${id}`,
       { headers: headers }
     );
-    return response;
+    const result = {
+      status: response.status,
+      data: response.data?.data
+    };
+    return result;
   } catch (error) {
     console.log(error);
   }

@@ -1,10 +1,9 @@
-import { AxiosResponse } from "axios";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { signup } from "api/auth";
 import useError from "hooks/useError";
 import useForm from "hooks/useForm";
-import { SignUpFormType } from "types/sign";
+import { SignSuccessType, SignUpFormType } from "types/sign";
 import { SignUpErrorType } from "types/error";
 import SignInput from "components/input/SignInput";
 import { ERROR } from "util/constants";
@@ -41,7 +40,7 @@ function SignUp() {
     if (!isFormValidate().includes(true)) {
       console.log(2, isError);
       signup({ email, password }).then(
-        (res: AxiosResponse<any> | undefined): void => {
+        (res: { status: number; data: SignSuccessType } | undefined): void => {
           if (res?.status === 200) {
             localStorage.setItem("token", res?.data.token);
             navigate("/todo");

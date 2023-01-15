@@ -7,9 +7,13 @@ import { ModalTitle, ButtonWrapper } from "./style";
 function RemoveModal({ todoId, isClose, setToggle }: BasicModalType) {
   const handleRemoveTodo = () => {
     if (todoId)
-      removeTodo(todoId).then(() => {
-        setToggle(false);
-      });
+      removeTodo(todoId).then(
+        (res: { status: number; data: null } | undefined): void => {
+          if (res?.status === 200) {
+            setToggle(false);
+          }
+        }
+      );
   };
 
   return (

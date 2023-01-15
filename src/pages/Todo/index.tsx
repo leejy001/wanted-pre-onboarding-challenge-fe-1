@@ -1,4 +1,3 @@
-import { AxiosResponse } from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { getTodos } from "api/todo";
@@ -27,13 +26,15 @@ function Todo() {
   const [modalType, setModalType] = useState<string>("add");
 
   useEffect(() => {
-    getTodos().then((res: AxiosResponse<any> | undefined): void => {
-      if (res?.status === 200) {
-        setTodos(res?.data?.data);
-      } else {
-        setTodos([]);
+    getTodos().then(
+      (res: { status: number; data: TodoType[] } | undefined): void => {
+        if (res?.status === 200) {
+          setTodos(res?.data);
+        } else {
+          setTodos([]);
+        }
       }
-    });
+    );
   }, [isToggle, isRemove]);
 
   const handleToggleDetail = (e: React.MouseEvent, id: string) => {

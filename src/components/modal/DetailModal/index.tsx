@@ -1,4 +1,3 @@
-import { AxiosResponse } from "axios";
 import React, { useEffect, useState } from "react";
 import { getTodo } from "api/todo";
 import { BasicModalType } from "types/modal";
@@ -12,11 +11,13 @@ function DetailModal({ todoId, isClose, setToggle }: BasicModalType) {
     useState<TodoType>(initialTodoState);
 
   useEffect(() => {
-    getTodo(todoId).then((res: AxiosResponse<any> | undefined): void => {
-      if (res?.status === 200) {
-        setItem(res?.data?.data);
+    getTodo(todoId).then(
+      (res: { status: number; data: TodoType } | undefined): void => {
+        if (res?.status === 200) {
+          setItem(res?.data);
+        }
       }
-    });
+    );
     return () => {
       setItem(initialTodoState);
     };

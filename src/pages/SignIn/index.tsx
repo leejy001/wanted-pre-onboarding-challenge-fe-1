@@ -1,10 +1,9 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { AxiosResponse } from "axios";
 import { signin } from "api/auth";
 import useForm from "hooks/useForm";
 import useError from "hooks/useError";
-import { SignInFormType } from "types/sign";
+import { SignInFormType, SignSuccessType } from "types/sign";
 import { SignInErrorType } from "types/error";
 import { isEmailValidate, isPasswordValidate } from "util/validate";
 import SignInput from "components/input/SignInput";
@@ -35,7 +34,7 @@ function SignIn() {
     e.preventDefault();
     if (!isFormValidate().includes(true)) {
       signin({ email, password }).then(
-        (res: AxiosResponse<any> | undefined): void => {
+        (res: { status: number; data: SignSuccessType } | undefined): void => {
           if (res?.status === 200) {
             localStorage.setItem("token", res?.data.token);
             navigate("/todo");

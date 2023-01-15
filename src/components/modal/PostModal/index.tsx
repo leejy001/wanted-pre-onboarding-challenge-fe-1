@@ -1,4 +1,3 @@
-import { AxiosResponse } from "axios";
 import React, { useCallback, useEffect } from "react";
 import { addTodo, editTodo, getTodo } from "api/todo";
 import useForm from "hooks/useForm";
@@ -14,11 +13,13 @@ function PostModal({ todoId, isClose, modalType, setToggle }: PostModalType) {
 
   useEffect(() => {
     if (modalType === "edit") {
-      getTodo(todoId).then((res: AxiosResponse<any> | undefined): void => {
-        if (res?.status === 200) {
-          setState(res?.data?.data);
+      getTodo(todoId).then(
+        (res: { status: number; data: TodoType } | undefined): void => {
+          if (res?.status === 200) {
+            setState(res?.data);
+          }
         }
-      });
+      );
     }
     return () => {
       setState(initialTodoState);

@@ -18,3 +18,8 @@ export interface SignInputType {
   placeholder: string;
   errorMessage: string;
 }
+
+export interface SignSuccessType {
+  message: string;
+  token: string;
+}
