@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { signin } from "api/auth";
-import useForm from "hooks/useForm";
-import useError from "hooks/useError";
-import { SignInFormType, SignSuccessType } from "types/sign";
+import useForm from "hooks/common/useForm";
+import useError from "hooks/common/useError";
+import useSignInMutation from "hooks/sign/useSignInMutation";
+import { SignInFormType } from "types/sign";
 import { SignInErrorType } from "types/error";
 import { isEmailValidate, isPasswordValidate } from "util/validate";
 import SignInput from "components/input/SignInput";
@@ -12,6 +12,7 @@ import { SignInContianer, Title, ButtonWrapper } from "./style";
 
 function SignIn() {
   const navigate = useNavigate();
+  const { mutate, error } = useSignInMutation();
   const [{ email, password }, handleChange] = useForm<SignInFormType>({
     email: "",
     password: ""
@@ -32,19 +33,12 @@ function SignIn() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
-    if (!isFormValidate().includes(true)) {
-      signin({ email, password }).then(
-        (res: { status: number; data: SignSuccessType } | undefined): void => {
-          if (res?.status === 200) {
-            localStorage.setItem("token", res?.data.token);
-            navigate("/todo");
-          } else {
-            setError("signIn", true);
-          }
-        }
-      );
-    }
+    if (!isFormValidate().includes(true)) mutate({ email, password });
   };
+
+  useEffect(() => {
+    if (error) setError("signIn", true);
+  }, [error]);
 
   return (
     <SignInContianer>

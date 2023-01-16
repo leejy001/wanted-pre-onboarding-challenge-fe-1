@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { signup } from "api/auth";
-import useError from "hooks/useError";
-import useForm from "hooks/useForm";
-import { SignSuccessType, SignUpFormType } from "types/sign";
+import useForm from "hooks/common/useForm";
+import useError from "hooks/common/useError";
+import useSignUpMutation from "hooks/sign/useSignUpMutation";
+import { SignUpFormType } from "types/sign";
 import { SignUpErrorType } from "types/error";
 import SignInput from "components/input/SignInput";
 import { ERROR } from "util/constants";
@@ -12,6 +12,7 @@ import { SignUpContainer, Title, ButtonWrapper } from "./style";
 
 function SignUp() {
   const navigate = useNavigate();
+  const { mutate, error } = useSignUpMutation();
   const [{ email, password, confirmPassword }, handleChange] =
     useForm<SignUpFormType>({
       email: "",
@@ -36,22 +37,12 @@ function SignUp() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
-    console.log(1, isError);
-    if (!isFormValidate().includes(true)) {
-      console.log(2, isError);
-      signup({ email, password }).then(
-        (res: { status: number; data: SignSuccessType } | undefined): void => {
-          if (res?.status === 200) {
-            localStorage.setItem("token", res?.data.token);
-            navigate("/todo");
-          } else {
-            setError("signUp", true);
-          }
-        }
-      );
-    }
-    console.log(3, isError);
+    if (!isFormValidate().includes(true)) mutate({ email, password });
   };
+
+  useEffect(() => {
+    if (error) setError("signUp", true);
+  }, [error]);
 
   return (
     <SignUpContainer>

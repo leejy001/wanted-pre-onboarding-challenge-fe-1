@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router";
-import { getTodos } from "api/todo";
 import RemoveModal from "components/modal/RemoveModal";
 import DetailModal from "components/modal/DetailModal";
 import PostModal from "components/modal/PostModal";
 import { TodoType } from "types/todo";
+import useTodosQuery from "hooks/todo/queries/useTodosQuery";
 import {
   TodoContainer,
   TodoTitle,
@@ -18,24 +18,12 @@ import {
 
 function Todo() {
   const navigate = useNavigate();
-  const [todos, setTodos] = useState<Array<TodoType>>([]);
+  const { data: todos } = useTodosQuery();
   const [isToggle, setToggle] = useState<boolean>(false);
   const [isRemove, setRemove] = useState<boolean>(false);
   const [isDetail, setDetail] = useState<boolean>(false);
   const [todoId, setTodoId] = useState<string>("");
   const [modalType, setModalType] = useState<string>("add");
-
-  useEffect(() => {
-    getTodos().then(
-      (res: { status: number; data: TodoType[] } | undefined): void => {
-        if (res?.status === 200) {
-          setTodos(res?.data);
-        } else {
-          setTodos([]);
-        }
-      }
-    );
-  }, [isToggle, isRemove]);
 
   const handleToggleDetail = (e: React.MouseEvent, id: string) => {
     e.stopPropagation();
@@ -72,11 +60,11 @@ function Todo() {
         <TodoTitle>Todo</TodoTitle>
         <LogoutButton onClick={logoutClick}>로그아웃</LogoutButton>
         <AddContainer>
-          <p>{todos?.length}개의 할일</p>
+          <p>{todos?.data.length}개의 할일</p>
           <button onClick={handleToggleAdd}>추가하기</button>
         </AddContainer>
         <TodoListContainer>
-          {todos?.map((item: TodoType) => (
+          {todos?.data.map((item: TodoType) => (
             <TodoItem
               key={item.id}
               onClick={(e) => handleToggleDetail(e, item.id)}

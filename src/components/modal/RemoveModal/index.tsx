@@ -1,19 +1,14 @@
 import React from "react";
-import { removeTodo } from "api/todo";
 import { BasicModalType } from "types/modal";
 import Modal from "../../common/Modal";
 import { ModalTitle, ButtonWrapper } from "./style";
+import useRemoveTodoMutation from "hooks/todo/mutation/useRemoveTodoMutation";
 
 function RemoveModal({ todoId, isClose, setToggle }: BasicModalType) {
+  const { mutate } = useRemoveTodoMutation({ setToggle });
+
   const handleRemoveTodo = () => {
-    if (todoId)
-      removeTodo(todoId).then(
-        (res: { status: number; data: null } | undefined): void => {
-          if (res?.status === 200) {
-            setToggle(false);
-          }
-        }
-      );
+    if (todoId) mutate(todoId);
   };
 
   return (

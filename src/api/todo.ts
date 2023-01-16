@@ -26,15 +26,18 @@ export const getTodo = async (id: string | undefined) => {
     authorization: localStorage.getItem("token")
   };
   try {
-    const response = await axios.get(
-      process.env.REACT_APP_BASIC_URL + `/todos/${id}`,
-      { headers: headers }
-    );
-    const result = {
-      status: response.status,
-      data: response.data?.data
-    };
-    return result;
+    if (id) {
+      const response = await axios.get(
+        process.env.REACT_APP_BASIC_URL + `/todos/${id}`,
+        { headers: headers }
+      );
+      const result = {
+        status: response.status,
+        data: response.data?.data
+      };
+      return result;
+    }
+    return;
   } catch (error) {
     console.log(error);
   }

@@ -1,45 +1,36 @@
 import React, { useCallback, useEffect } from "react";
-import { addTodo, editTodo, getTodo } from "api/todo";
-import useForm from "hooks/useForm";
+import useForm from "hooks/common/useForm";
 import { PostModalType } from "types/modal";
 import { TodoType } from "types/todo";
 import { initialTodoState } from "util/state";
 import Modal from "../../common/Modal";
 import { ModalTitle, ModalForm, ConfirmButton } from "./style";
+import useAddTodoMutation from "hooks/todo/mutation/useAddTodoMutation";
+import useModfiyTodoMutation from "hooks/todo/mutation/useModifyTodoMutation";
+import useTodoQuery from "hooks/todo/queries/useTodoQuery";
 
 function PostModal({ todoId, isClose, modalType, setToggle }: PostModalType) {
   const [{ id, title, content, updatedAt }, handleChange, setState] =
     useForm<TodoType>(initialTodoState);
+  const { data: todo } = useTodoQuery(todoId);
+  const { mutate: addMutate } = useAddTodoMutation({ setToggle });
+  const { mutate: modifyMutate } = useModfiyTodoMutation({ setToggle });
 
   useEffect(() => {
-    if (modalType === "edit") {
-      getTodo(todoId).then(
-        (res: { status: number; data: TodoType } | undefined): void => {
-          if (res?.status === 200) {
-            setState(res?.data);
-          }
-        }
-      );
+    if (modalType === "edit" && todo) {
+      setState(todo?.data);
     }
-    return () => {
-      setState(initialTodoState);
-    };
-  }, []);
+  }, [todo?.data]);
 
   const handleSubmit = useCallback(
     (e: React.FormEvent<HTMLFormElement>): void => {
       e.preventDefault();
       if (modalType === "add") {
-        addTodo({ title, content }).then(() => {
-          alert("추가 완료!!");
-          setToggle(false);
-        });
+        addMutate({ title, content });
         return;
       }
-      editTodo({ id, title, content }).then(() => {
-        alert("수정 완료!!");
-        setToggle(false);
-      });
+      modifyMutate({ id, title, content });
+      setState(initialTodoState);
     },
     [title, content]
   );

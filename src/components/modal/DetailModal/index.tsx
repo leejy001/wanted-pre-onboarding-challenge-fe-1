@@ -1,34 +1,18 @@
-import React, { useEffect, useState } from "react";
-import { getTodo } from "api/todo";
+import React from "react";
 import { BasicModalType } from "types/modal";
-import { TodoType } from "types/todo";
-import { initialTodoState } from "util/state";
 import Modal from "../../common/Modal";
 import { ModalTitle, InfoTitle, InfoContent } from "./style";
+import useTodoQuery from "hooks/todo/queries/useTodoQuery";
 
 function DetailModal({ todoId, isClose, setToggle }: BasicModalType) {
-  const [{ title, content, updatedAt }, setItem] =
-    useState<TodoType>(initialTodoState);
-
-  useEffect(() => {
-    getTodo(todoId).then(
-      (res: { status: number; data: TodoType } | undefined): void => {
-        if (res?.status === 200) {
-          setItem(res?.data);
-        }
-      }
-    );
-    return () => {
-      setItem(initialTodoState);
-    };
-  }, []);
+  const { data: todo } = useTodoQuery(todoId);
 
   return (
     <Modal setToggle={setToggle} isClose={isClose}>
       <ModalTitle>Todo</ModalTitle>
-      <p>마지막 수정 날짜: {updatedAt.split("T")[0]}</p>
-      <InfoTitle>{title}</InfoTitle>
-      <InfoContent>{content}</InfoContent>
+      <p>마지막 수정 날짜: {todo?.data.updatedAt.split("T")[0]}</p>
+      <InfoTitle>{todo?.data.title}</InfoTitle>
+      <InfoContent>{todo?.data.content}</InfoContent>
     </Modal>
   );
 }
