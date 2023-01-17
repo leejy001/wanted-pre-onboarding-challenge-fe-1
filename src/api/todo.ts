@@ -1,15 +1,8 @@
-import axios from "axios";
+import api from "./api";
 
 export const getTodos = async () => {
-  const headers = {
-    "Content-Type": "application/json",
-    authorization: localStorage.getItem("token")
-  };
   try {
-    const response = await axios.get(
-      process.env.REACT_APP_BASIC_URL + "/todos",
-      { headers: headers }
-    );
+    const response = await api.get("/todos");
     const result = {
       status: response.status,
       data: response.data?.data
@@ -21,16 +14,9 @@ export const getTodos = async () => {
 };
 
 export const getTodo = async (id: string | undefined) => {
-  const headers = {
-    "Content-Type": "application/json",
-    authorization: localStorage.getItem("token")
-  };
   try {
     if (id) {
-      const response = await axios.get(
-        process.env.REACT_APP_BASIC_URL + `/todos/${id}`,
-        { headers: headers }
-      );
+      const response = await api.get(`/todos/${id}`);
       const result = {
         status: response.status,
         data: response.data?.data
@@ -44,16 +30,8 @@ export const getTodo = async (id: string | undefined) => {
 };
 
 export const addTodo = async (data: { title: string; content: string }) => {
-  const headers = {
-    "Content-Type": "application/json",
-    authorization: localStorage.getItem("token")
-  };
   try {
-    const response = await axios.post(
-      process.env.REACT_APP_BASIC_URL + "/todos",
-      data,
-      { headers: headers }
-    );
+    const response = await api.post("/todos", data);
     const result = {
       status: response.status,
       data: response.data?.data
@@ -69,20 +47,12 @@ export const editTodo = async (data: {
   title: string;
   content: string;
 }) => {
-  const headers = {
-    "Content-Type": "application/json",
-    authorization: localStorage.getItem("token")
-  };
   const body = {
     title: data.title,
     content: data.content
   };
   try {
-    const response = await axios.put(
-      process.env.REACT_APP_BASIC_URL + `/todos/${data.id}`,
-      body,
-      { headers: headers }
-    );
+    const response = await api.put(`/todos/${data.id}`, body);
     const result = {
       status: response.status,
       data: response.data?.data
@@ -94,15 +64,8 @@ export const editTodo = async (data: {
 };
 
 export const removeTodo = async (id: string) => {
-  const headers = {
-    "Content-Type": "application/json",
-    authorization: localStorage.getItem("token")
-  };
   try {
-    const response = await axios.delete(
-      process.env.REACT_APP_BASIC_URL + `/todos/${id}`,
-      { headers: headers }
-    );
+    const response = await api.delete(`/todos/${id}`);
     const result = {
       status: response.status,
       data: response.data?.data
