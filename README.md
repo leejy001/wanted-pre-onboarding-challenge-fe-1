@@ -103,3 +103,6 @@ yarn && yarn start
 npm install && npm start
 ```
 localhost환경에서 서버는 port번호 8080, 클라이언트는 port번호 3000을 사용<br/>
+
+## 코드 리팩토링 Wiki
+[`wiki`](https://github.com/leejy001/wanted-pre-onboarding-challenge-fe-1/wiki)
