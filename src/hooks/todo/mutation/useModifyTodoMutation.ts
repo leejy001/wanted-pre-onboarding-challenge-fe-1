@@ -1,6 +1,7 @@
 import { editTodo } from "api/todo";
 import { useMutation, useQueryClient } from "react-query";
 import { setToggleType } from "types/modal";
+import { Toast } from "util/toast";
 
 const useModfiyTodoMutation = ({ setToggle }: setToggleType) => {
   const queryClient = useQueryClient();
@@ -9,6 +10,7 @@ const useModfiyTodoMutation = ({ setToggle }: setToggleType) => {
     onSuccess: () => {
       queryClient.invalidateQueries(["todos"]);
       setToggle(false);
+      Toast("success", "수정 완료!!!");
     }
   });
 };

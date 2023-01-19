@@ -1,15 +1,8 @@
 import React from "react";
+import { ImageButtonType } from "types/button";
 import { ImgBtnContainer } from "./style";
 
-interface ButtonType {
-  type: "button" | "submit";
-  imgSrc: string;
-  width: number;
-  height: number;
-  onClick?: (e: React.MouseEvent<Element, MouseEvent>) => void;
-}
-
-function ImageButton({ ...rest }: ButtonType) {
+function ImageButton({ ...rest }: ImageButtonType) {
   return (
     <ImgBtnContainer {...rest}>
       <img src={rest.imgSrc} alt="Button Image" />

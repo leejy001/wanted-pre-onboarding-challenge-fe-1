@@ -7,6 +7,7 @@ import { SignUpFormType } from "types/sign";
 import { SignUpErrorType } from "types/error";
 import SignInput from "components/input/SignInput";
 import { ERROR } from "util/constants";
+import { Toast } from "util/toast";
 import { isEmailValidate, isPasswordValidate } from "util/validate";
 import { SignUpContainer, Title, ButtonWrapper } from "./style";
 import DefaultButton from "components/common/Button";
@@ -42,7 +43,10 @@ function SignUp() {
   };
 
   useEffect(() => {
-    if (error) setError("signUp", true);
+    if (error) {
+      setError("signUp", true);
+      Toast("error", "회원가입 실패!!");
+    }
   }, [error]);
 
   return (

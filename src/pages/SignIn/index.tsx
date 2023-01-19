@@ -5,6 +5,7 @@ import useError from "hooks/common/useError";
 import useSignInMutation from "hooks/sign/useSignInMutation";
 import { SignInFormType } from "types/sign";
 import { SignInErrorType } from "types/error";
+import { Toast } from "util/toast";
 import { isEmailValidate, isPasswordValidate } from "util/validate";
 import SignInput from "components/input/SignInput";
 import { ERROR } from "util/constants";
@@ -38,7 +39,10 @@ function SignIn() {
   };
 
   useEffect(() => {
-    if (error) setError("signIn", true);
+    if (error) {
+      setError("signIn", true);
+      Toast("error", "로그인 실패!!");
+    }
   }, [error]);
 
   return (
