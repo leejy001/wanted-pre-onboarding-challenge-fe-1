@@ -11,10 +11,10 @@ import {
   AddContainer,
   TodoListContainer,
   TodoItem,
-  TodoInfoWrapper,
-  ButtonWrapper
+  TodoInfoWrapper
 } from "./style";
 import DefaultButton from "components/common/Button";
+import ImageButton from "components/common/ImageButton";
 
 function Todo() {
   const navigate = useNavigate();
@@ -87,12 +87,20 @@ function Todo() {
                 <p>작성일자: {item.createdAt.split("T")[0]}</p>
                 <p>{item.title}</p>
               </TodoInfoWrapper>
-              <ButtonWrapper>
-                <button onClick={(e) => handleToggleEdit(e, item.id)}>🖊</button>
-                <button onClick={(e) => handleToggleRemove(e, item.id)}>
-                  🗑
-                </button>
-              </ButtonWrapper>
+              <div>
+                <ImageButton
+                  onClick={(e) => handleToggleEdit(e, item.id)}
+                  width={32}
+                  height={32}
+                  imgSrc={`${process.env.PUBLIC_URL}/asset/edit.png`}
+                />
+                <ImageButton
+                  onClick={(e) => handleToggleRemove(e, item.id)}
+                  width={32}
+                  height={32}
+                  imgSrc={`${process.env.PUBLIC_URL}/asset/trash.png`}
+                />
+              </div>
             </TodoItem>
           ))}
         </TodoListContainer>

@@ -1,6 +1,7 @@
 import React, { PropsWithChildren } from "react";
 import { BasicModalType } from "types/modal";
-import { ModalContainer, CloseButton } from "./style";
+import ImageButton from "../ImageButton";
+import { ModalContainer, CloseButtonWrapper } from "./style";
 
 function Modal({
   isClose,
@@ -9,7 +10,16 @@ function Modal({
 }: PropsWithChildren<BasicModalType>) {
   return (
     <ModalContainer>
-      {isClose && <CloseButton onClick={() => setToggle(false)}>X</CloseButton>}
+      {isClose && (
+        <CloseButtonWrapper>
+          <ImageButton
+            onClick={() => setToggle(false)}
+            width={36}
+            height={36}
+            imgSrc={`${process.env.PUBLIC_URL}/asset/close.png`}
+          />
+        </CloseButtonWrapper>
+      )}
       {children}
     </ModalContainer>
   );

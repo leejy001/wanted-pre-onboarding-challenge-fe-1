@@ -12,13 +12,10 @@ export const ModalContainer = styled.div`
   padding: 30px;
 `;
 
-export const CloseButton = styled.button`
+export const CloseButtonWrapper = styled.div`
   position: absolute;
   right: 2px;
   top: 2px;
-  width: 40px;
-  height: 40px;
-  background-color: white;
-  border: none;
-  color: #1e90ff;
+  width: 36px;
+  height: 36px;
 `;

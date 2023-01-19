@@ -35,12 +35,17 @@ export const TodoListContainer = styled.ul`
 export const TodoItem = styled.li`
   display: flex;
   justify-content: space-between;
+  align-items: center;
   border-bottom: 1px solid #a9a9a9;
   padding: 10px 0px;
   cursor: pointer;
+  div:nth-child(2) {
+    display: none;
+    gap: 10px;
+  }
   &:hover {
-    button {
-      display: block;
+    div:nth-child(2) {
+      display: flex;
     }
   }
 `;
@@ -50,15 +55,5 @@ export const TodoInfoWrapper = styled.div`
     padding-top: 10px;
     font-size: 16px;
     font-weight: 700;
-  }
-`;
-
-export const ButtonWrapper = styled.div`
-  display: flex;
-  button {
-    display: none;
-    background-color: white;
-    border: none;
-    font-size: 30px;
   }
 `;
