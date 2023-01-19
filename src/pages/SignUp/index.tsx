@@ -9,6 +9,7 @@ import SignInput from "components/input/SignInput";
 import { ERROR } from "util/constants";
 import { isEmailValidate, isPasswordValidate } from "util/validate";
 import { SignUpContainer, Title, ButtonWrapper } from "./style";
+import DefaultButton from "components/common/Button";
 
 function SignUp() {
   const navigate = useNavigate();
@@ -84,10 +85,20 @@ function SignUp() {
           }
         />
         <ButtonWrapper>
-          <button onClick={() => navigate(-1)} data-route="home">
-            뒤로
-          </button>
-          <button type="submit">회원가입 하기</button>
+          <DefaultButton
+            name="뒤로"
+            className="primary"
+            width={150}
+            height={40}
+            onClick={() => navigate(-1)}
+          />
+          <DefaultButton
+            type="submit"
+            name="회원가입"
+            className="primary"
+            width={150}
+            height={40}
+          />
         </ButtonWrapper>
       </form>
     </SignUpContainer>

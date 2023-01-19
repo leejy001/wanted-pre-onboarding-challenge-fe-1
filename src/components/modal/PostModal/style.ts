@@ -29,13 +29,6 @@ export const ModalForm = styled.form`
   }
 `;
 
-export const ConfirmButton = styled.button`
-  width: 150px;
-  height: 36px;
-  background-color: #1e90ff;
-  border: none;
-  border-radius: 10px;
-  color: #fff;
-  padding: 0;
+export const ButtonWrapper = styled.div`
   margin: 10px auto 0px;
 `;

@@ -23,12 +23,4 @@ export const ButtonWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   margin-top: 20px;
-  button {
-    width: 130px;
-    height: 36px;
-    background-color: #1e90ff;
-    border: none;
-    border-radius: 10px;
-    color: #fff;
-  }
 `;

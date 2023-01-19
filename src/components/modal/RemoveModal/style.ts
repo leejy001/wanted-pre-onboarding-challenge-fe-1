@@ -13,13 +13,4 @@ export const ButtonWrapper = styled.div`
   justify-content: center;
   gap: 20px;
   margin-top: 40px;
-  button {
-    width: 150px;
-    height: 36px;
-    background-color: #1e90ff;
-    border: none;
-    border-radius: 10px;
-    color: #fff;
-    padding: 0;
-  }
 `;

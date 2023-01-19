@@ -18,15 +18,3 @@ export const TodoLogo = styled.div`
   font-weight: 700;
   margin-bottom: 20px;
 `;
-
-export const SignButton = styled.button`
-  background-color: #1e90ff;
-  border: none;
-  border-radius: 10px;
-  color: #fff;
-  width: 200px;
-  height: 40px;
-  font-size: 18px;
-  font-weight: 700;
-  margin-top: 10px;
-`;

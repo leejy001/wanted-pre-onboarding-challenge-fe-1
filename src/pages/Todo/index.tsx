@@ -8,13 +8,13 @@ import useTodosQuery from "hooks/todo/queries/useTodosQuery";
 import {
   TodoContainer,
   TodoTitle,
-  LogoutButton,
   AddContainer,
   TodoListContainer,
   TodoItem,
   TodoInfoWrapper,
   ButtonWrapper
 } from "./style";
+import DefaultButton from "components/common/Button";
 
 function Todo() {
   const navigate = useNavigate();
@@ -58,10 +58,24 @@ function Todo() {
     <>
       <TodoContainer>
         <TodoTitle>Todo</TodoTitle>
-        <LogoutButton onClick={logoutClick}>로그아웃</LogoutButton>
+        <DefaultButton
+          name="로그아웃"
+          className="border-primary"
+          width={80}
+          height={27}
+          fontSize={16}
+          onClick={logoutClick}
+        />
         <AddContainer>
           <p>{todos?.data.length}개의 할일</p>
-          <button onClick={handleToggleAdd}>추가하기</button>
+          <DefaultButton
+            name="추가하기"
+            className="border-primary"
+            width={80}
+            height={27}
+            fontSize={16}
+            onClick={handleToggleAdd}
+          />
         </AddContainer>
         <TodoListContainer>
           {todos?.data.map((item: TodoType) => (

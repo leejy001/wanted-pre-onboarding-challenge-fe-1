@@ -9,6 +9,7 @@ import { isEmailValidate, isPasswordValidate } from "util/validate";
 import SignInput from "components/input/SignInput";
 import { ERROR } from "util/constants";
 import { SignInContianer, Title, ButtonWrapper } from "./style";
+import DefaultButton from "components/common/Button";
 
 function SignIn() {
   const navigate = useNavigate();
@@ -67,8 +68,20 @@ function SignIn() {
           }
         />
         <ButtonWrapper>
-          <button onClick={() => navigate(-1)}>뒤로</button>
-          <button type="submit">로그인 하기</button>
+          <DefaultButton
+            name="뒤로"
+            className="primary"
+            width={130}
+            height={40}
+            onClick={() => navigate(-1)}
+          />
+          <DefaultButton
+            type="submit"
+            name="로그인"
+            className="primary"
+            width={130}
+            height={40}
+          />
         </ButtonWrapper>
       </form>
     </SignInContianer>

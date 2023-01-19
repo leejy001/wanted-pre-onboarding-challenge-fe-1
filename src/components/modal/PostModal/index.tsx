@@ -4,10 +4,11 @@ import { PostModalType } from "types/modal";
 import { TodoType } from "types/todo";
 import { initialTodoState } from "util/state";
 import Modal from "../../common/Modal";
-import { ModalTitle, ModalForm, ConfirmButton } from "./style";
+import { ModalTitle, ModalForm, ButtonWrapper } from "./style";
 import useAddTodoMutation from "hooks/todo/mutation/useAddTodoMutation";
 import useModfiyTodoMutation from "hooks/todo/mutation/useModifyTodoMutation";
 import useTodoQuery from "hooks/todo/queries/useTodoQuery";
+import DefaultButton from "components/common/Button";
 
 function PostModal({ todoId, isClose, modalType, setToggle }: PostModalType) {
   const [{ id, title, content, updatedAt }, handleChange, setState] =
@@ -48,7 +49,15 @@ function PostModal({ todoId, isClose, modalType, setToggle }: PostModalType) {
         <input type="text" name="title" value={title} onChange={handleChange} />
         <p>내용</p>
         <textarea name="content" value={content} onChange={handleChange} />
-        <ConfirmButton type="submit">완료</ConfirmButton>
+        <ButtonWrapper>
+          <DefaultButton
+            type="submit"
+            name="완료"
+            className="primary"
+            width={130}
+            height={40}
+          />
+        </ButtonWrapper>
       </ModalForm>
     </Modal>
   );

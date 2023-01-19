@@ -16,29 +16,14 @@ export const TodoTitle = styled.p`
   margin-bottom: 10px;
 `;
 
-export const LogoutButton = styled.button`
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  background-color: white;
-  border: 2px solid #1e90ff;
-  border-radius: 5px;
-  color: #1e90ff;
-`;
-
 export const AddContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
   p {
+    margin-top: 10px;
     font-size: 16px;
     font-weight: 700;
-  }
-  button {
-    background-color: white;
-    border: 2px solid #1e90ff;
-    border-radius: 5px;
-    color: #1e90ff;
   }
 `;
 
