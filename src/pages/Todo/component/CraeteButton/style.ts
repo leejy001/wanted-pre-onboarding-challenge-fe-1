@@ -21,8 +21,8 @@ export const Button = styled.button`
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 60px;
-    height: 60px;
+    width: 50px;
+    height: 50px;
     object-fit: cover;
   }
 `;

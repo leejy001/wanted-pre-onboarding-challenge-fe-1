@@ -13,7 +13,7 @@ function RemoveModal({ todoId, isClose, setToggle }: BasicModalType) {
   };
 
   return (
-    <Modal setToggle={setToggle} isClose={isClose}>
+    <Modal width={300} setToggle={setToggle} isClose={isClose}>
       <ModalTitle>Todo 삭제</ModalTitle>
       <ButtonWrapper>
         <DefaultButton

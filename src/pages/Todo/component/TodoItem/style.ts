@@ -29,3 +29,9 @@ export const ItemWrapper = styled.li`
     }
   }
 `;
+
+export const DateWrapper = styled.div`
+  color: #1e90ff;
+  font-size: 14px;
+  font-weight: 700;
+`;
