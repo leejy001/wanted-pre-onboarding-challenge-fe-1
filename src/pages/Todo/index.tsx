@@ -10,14 +10,13 @@ import {
   TodoContainer,
   TodoContainerHeader,
   TodoListContainer,
-  TodoItem,
   TodoContainerFooter,
   CreateButtonWrapper
 } from "./style";
-import ImageButton from "components/common/ImageButton";
 import LogoutButton from "./component/LogoutButton";
 import CreateButton from "./component/CraeteButton";
 import Today from "./component/Today";
+import TodoItem from "./component/TodoItem";
 
 function Todo() {
   const navigate = useNavigate();
@@ -69,27 +68,11 @@ function Todo() {
             {todos?.data.map((item: TodoType) => (
               <TodoItem
                 key={item.id}
-                onClick={(e) => handleToggleDetail(e, item.id)}
-              >
-                <div>
-                  <p>작성일자: {item.createdAt.split("T")[0]}</p>
-                  <p>{item.title}</p>
-                </div>
-                <div>
-                  <ImageButton
-                    onClick={(e) => handleToggleEdit(e, item.id)}
-                    width={32}
-                    height={32}
-                    imgSrc={`${process.env.PUBLIC_URL}/asset/edit.png`}
-                  />
-                  <ImageButton
-                    onClick={(e) => handleToggleRemove(e, item.id)}
-                    width={32}
-                    height={32}
-                    imgSrc={`${process.env.PUBLIC_URL}/asset/trash.png`}
-                  />
-                </div>
-              </TodoItem>
+                item={item}
+                detailToggle={(e) => handleToggleDetail(e, item.id)}
+                editToggle={(e) => handleToggleEdit(e, item.id)}
+                removeToggle={(e) => handleToggleRemove(e, item.id)}
+              />
             ))}
           </TodoListContainer>
           <TodoContainerFooter>

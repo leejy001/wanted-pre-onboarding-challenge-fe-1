@@ -33,29 +33,6 @@ export const TodoListContainer = styled.ul`
   flex-direction: column;
 `;
 
-export const TodoItem = styled.li`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid #a9a9a9;
-  padding: 10px 0px;
-  cursor: pointer;
-  div:nth-child(1) {
-    padding-top: 10px;
-    font-size: 16px;
-    font-weight: 700;
-  }
-  div:nth-child(2) {
-    display: none;
-    gap: 10px;
-  }
-  &:hover {
-    div:nth-child(2) {
-      display: flex;
-    }
-  }
-`;
-
 export const TodoContainerFooter = styled.div`
   padding: 30px 0px 50px;
   p {
