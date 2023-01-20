@@ -17,6 +17,7 @@ import LogoutButton from "./component/LogoutButton";
 import CreateButton from "./component/CraeteButton";
 import Today from "./component/Today";
 import TodoItem from "./component/TodoItem";
+import TimeTag from "./component/TimeTag";
 
 function Todo() {
   const navigate = useNavigate();
@@ -60,6 +61,7 @@ function Todo() {
     <>
       <TodoWrapper>
         <LogoutButton logoutClick={logoutClick} />
+        <TimeTag />
         <TodoContainer>
           <TodoContainerHeader>
             <Today />
