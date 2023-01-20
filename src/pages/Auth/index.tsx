@@ -1,7 +1,7 @@
 import DefaultButton from "components/common/Button";
+import Container from "components/common/Container";
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { MainContainer, TodoLogo } from "./style";
 
 function Auth() {
   const navigate = useNavigate();
@@ -15,8 +15,7 @@ function Auth() {
   };
 
   return (
-    <MainContainer>
-      <TodoLogo>Todo</TodoLogo>
+    <Container title={"ToDo"}>
       <DefaultButton
         name="Sign In"
         className="primary"
@@ -31,7 +30,7 @@ function Auth() {
         height={40}
         onClick={() => navigate("/auth/sign-up")}
       />
-    </MainContainer>
+    </Container>
   );
 }
 

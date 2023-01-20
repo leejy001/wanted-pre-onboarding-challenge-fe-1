@@ -3,6 +3,7 @@ html {
 }
 
 body {
+    background-color: #1e90ff;
     display: flex;
     flex-direction: column;
     justify-content: center;

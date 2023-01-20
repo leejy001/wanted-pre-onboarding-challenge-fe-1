@@ -6,13 +6,15 @@ export const MainContainer = styled.div`
   justify-content: center;
   align-items: center;
   margin: 0 auto;
-  width: 350px;
+  width: 400px;
   height: 350px;
   border: 2px solid #1e90ff;
   border-radius: 20px;
+  background-color: #fff;
+  box-shadow: 10px 5px 5px #0074e4;
 `;
 
-export const TodoLogo = styled.div`
+export const ContainerTitle = styled.p`
   color: #1e90ff;
   font-size: 40px;
   font-weight: 700;

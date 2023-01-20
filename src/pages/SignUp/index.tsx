@@ -9,8 +9,9 @@ import SignInput from "components/input/SignInput";
 import { ERROR } from "util/constants";
 import { Toast } from "util/toast";
 import { isEmailValidate, isPasswordValidate } from "util/validate";
-import { SignUpContainer, Title, ButtonWrapper } from "./style";
+import { ButtonWrapper } from "./style";
 import DefaultButton from "components/common/Button";
+import Container from "components/common/Container";
 
 function SignUp() {
   const navigate = useNavigate();
@@ -50,8 +51,7 @@ function SignUp() {
   }, [error]);
 
   return (
-    <SignUpContainer>
-      <Title>회원가입</Title>
+    <Container title="회원가입">
       <form onSubmit={handleSubmit}>
         <SignInput
           inputTitle="이메일"
@@ -105,7 +105,7 @@ function SignUp() {
           />
         </ButtonWrapper>
       </form>
-    </SignUpContainer>
+    </Container>
   );
 }
 
