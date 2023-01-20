@@ -6,15 +6,18 @@ import PostModal from "components/modal/PostModal";
 import { TodoType } from "types/todo";
 import useTodosQuery from "hooks/todo/queries/useTodosQuery";
 import {
+  TodoWrapper,
   TodoContainer,
-  TodoTitle,
-  AddContainer,
+  TodoContainerHeader,
   TodoListContainer,
   TodoItem,
-  TodoInfoWrapper
+  TodoContainerFooter,
+  CreateButtonWrapper
 } from "./style";
-import DefaultButton from "components/common/Button";
 import ImageButton from "components/common/ImageButton";
+import LogoutButton from "./component/LogoutButton";
+import CreateButton from "./component/CraeteButton";
+import Today from "./component/Today";
 
 function Todo() {
   const navigate = useNavigate();
@@ -56,69 +59,63 @@ function Todo() {
 
   return (
     <>
-      <TodoContainer>
-        <TodoTitle>Todo</TodoTitle>
-        <DefaultButton
-          name="로그아웃"
-          className="border-primary"
-          width={80}
-          height={27}
-          fontSize={16}
-          onClick={logoutClick}
-        />
-        <AddContainer>
-          <p>{todos?.data.length}개의 할일</p>
-          <DefaultButton
-            name="추가하기"
-            className="border-primary"
-            width={80}
-            height={27}
-            fontSize={16}
-            onClick={handleToggleAdd}
+      <TodoWrapper>
+        <LogoutButton logoutClick={logoutClick} />
+        <TodoContainer>
+          <TodoContainerHeader>
+            <Today />
+          </TodoContainerHeader>
+          <TodoListContainer>
+            {todos?.data.map((item: TodoType) => (
+              <TodoItem
+                key={item.id}
+                onClick={(e) => handleToggleDetail(e, item.id)}
+              >
+                <div>
+                  <p>작성일자: {item.createdAt.split("T")[0]}</p>
+                  <p>{item.title}</p>
+                </div>
+                <div>
+                  <ImageButton
+                    onClick={(e) => handleToggleEdit(e, item.id)}
+                    width={32}
+                    height={32}
+                    imgSrc={`${process.env.PUBLIC_URL}/asset/edit.png`}
+                  />
+                  <ImageButton
+                    onClick={(e) => handleToggleRemove(e, item.id)}
+                    width={32}
+                    height={32}
+                    imgSrc={`${process.env.PUBLIC_URL}/asset/trash.png`}
+                  />
+                </div>
+              </TodoItem>
+            ))}
+          </TodoListContainer>
+          <TodoContainerFooter>
+            <p>
+              <span>{todos?.data.length}</span>개의 할일
+            </p>
+          </TodoContainerFooter>
+          <CreateButtonWrapper>
+            <CreateButton handleToggle={handleToggleAdd} />
+          </CreateButtonWrapper>
+        </TodoContainer>
+        {isToggle && (
+          <PostModal
+            todoId={todoId}
+            isClose={true}
+            modalType={modalType}
+            setToggle={setToggle}
           />
-        </AddContainer>
-        <TodoListContainer>
-          {todos?.data.map((item: TodoType) => (
-            <TodoItem
-              key={item.id}
-              onClick={(e) => handleToggleDetail(e, item.id)}
-            >
-              <TodoInfoWrapper>
-                <p>작성일자: {item.createdAt.split("T")[0]}</p>
-                <p>{item.title}</p>
-              </TodoInfoWrapper>
-              <div>
-                <ImageButton
-                  onClick={(e) => handleToggleEdit(e, item.id)}
-                  width={32}
-                  height={32}
-                  imgSrc={`${process.env.PUBLIC_URL}/asset/edit.png`}
-                />
-                <ImageButton
-                  onClick={(e) => handleToggleRemove(e, item.id)}
-                  width={32}
-                  height={32}
-                  imgSrc={`${process.env.PUBLIC_URL}/asset/trash.png`}
-                />
-              </div>
-            </TodoItem>
-          ))}
-        </TodoListContainer>
-      </TodoContainer>
-      {isToggle && (
-        <PostModal
-          todoId={todoId}
-          isClose={true}
-          modalType={modalType}
-          setToggle={setToggle}
-        />
-      )}
-      {isDetail && (
-        <DetailModal todoId={todoId} isClose={true} setToggle={setDetail} />
-      )}
-      {isRemove && (
-        <RemoveModal todoId={todoId} isClose={false} setToggle={setRemove} />
-      )}
+        )}
+        {isDetail && (
+          <DetailModal todoId={todoId} isClose={true} setToggle={setDetail} />
+        )}
+        {isRemove && (
+          <RemoveModal todoId={todoId} isClose={false} setToggle={setRemove} />
+        )}
+      </TodoWrapper>
     </>
   );
 }

@@ -4,7 +4,7 @@ export const ImgBtnContainer = styled.button<{
   width: number;
   height: number;
 }>`
-  background-color: #fff;
+  background-color: rgba(0, 0, 0, 0);
   border: none;
   padding: 0;
   img {

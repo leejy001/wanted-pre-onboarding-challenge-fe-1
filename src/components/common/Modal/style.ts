@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 export const ModalContainer = styled.div`
+  z-index: 1000;
   position: fixed;
   width: 400px;
   background-color: white;
