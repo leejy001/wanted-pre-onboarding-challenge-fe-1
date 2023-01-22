@@ -2,7 +2,7 @@ import React, { useCallback, useEffect } from "react";
 import useForm from "hooks/common/useForm";
 import { PostModalType } from "types/modal";
 import { TodoType } from "types/todo";
-import { initialTodoState } from "util/state";
+import { initialTodoState } from "utils/state";
 import Modal from "../../common/Modal";
 import { ModalTitle, ModalForm, ButtonWrapper } from "./style";
 import useAddTodoMutation from "hooks/todo/mutation/useAddTodoMutation";

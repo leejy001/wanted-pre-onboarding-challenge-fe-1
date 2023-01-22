@@ -1,4 +1,5 @@
 import axios from "axios";
+import { getUserToken, removeUserToken } from "utils/token";
 
 const baseURL = process.env.REACT_APP_BASIC_URL;
 
@@ -6,7 +7,7 @@ const api = axios.create({ baseURL });
 
 api.interceptors.request.use(
   function (config) {
-    const token = localStorage.getItem("token");
+    const token = getUserToken();
     if (token) {
       config.headers = {
         "Content-type": "application/json",
@@ -29,7 +30,7 @@ api.interceptors.response.use(
       error.response?.status === 400 &&
       error.response?.data.details === "Token is missing"
     ) {
-      localStorage.removeItem("token");
+      removeUserToken();
       alert("세션이 만료되었습니다. 다시 로그인 해주세요");
       window.open("/auth/sign-in", "_self");
     }

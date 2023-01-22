@@ -1,5 +1,6 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
+import { getUserToken } from "utils/token";
 
 export type ProtectedRouteProps = {
   authenticationPath: string;
@@ -8,9 +9,9 @@ export type ProtectedRouteProps = {
 
 export default function ProtectedRoute({
   authenticationPath,
-  outlet,
+  outlet
 }: ProtectedRouteProps) {
-  if (localStorage.getItem("token")) {
+  if (getUserToken()) {
     return outlet;
   }
   return <Navigate to={{ pathname: authenticationPath }} />;

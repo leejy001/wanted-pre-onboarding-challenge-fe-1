@@ -1,7 +1,7 @@
 import { addTodo } from "api/todo";
 import { useMutation, useQueryClient } from "react-query";
 import { setToggleType } from "types/modal";
-import { Toast } from "util/toast";
+import { Toast } from "utils/toast";
 
 const useAddTodoMutation = ({ setToggle }: setToggleType) => {
   const queryClient = useQueryClient();

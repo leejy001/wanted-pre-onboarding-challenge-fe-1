@@ -4,7 +4,6 @@ import { TagContainer } from "./style";
 
 function TimeTag() {
   const [, , , , hour, minute, timeImg] = useSetTime();
-  console.log(timeImg);
 
   return (
     <TagContainer>

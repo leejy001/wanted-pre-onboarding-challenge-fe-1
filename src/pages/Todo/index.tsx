@@ -18,6 +18,7 @@ import CreateButton from "./component/CraeteButton";
 import Today from "./component/Today";
 import TodoItem from "./component/TodoItem";
 import TimeTag from "./component/TimeTag";
+import { removeUserToken } from "utils/token";
 
 function Todo() {
   const navigate = useNavigate();
@@ -53,7 +54,7 @@ function Todo() {
   };
 
   const logoutClick = () => {
-    localStorage.removeItem("token");
+    removeUserToken();
     navigate("/auth");
   };
 

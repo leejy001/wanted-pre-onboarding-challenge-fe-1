@@ -1,5 +1,5 @@
 import ImageButton from "components/common/ImageButton";
-import StringByFormatting from "lib/StringByFomatting";
+import StringByFormatting from "libs/StringByFomatting";
 import React from "react";
 import { TodoItemType } from "types/todo";
 import { ItemWrapper, DateWrapper } from "./style";
