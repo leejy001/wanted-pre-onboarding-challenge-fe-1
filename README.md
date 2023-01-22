@@ -124,10 +124,10 @@ PostModal은 modalType을 "edit", "add"를 받으며 type에 따라 수정, 추�
 
 ## 🛠 활용 기술
 
-React + TypeScript을 이용하여 서비스 구현
-CSS in JS 라이브러리인 Styled-components를 이용하여 React 컴포넌트 스타일링
-react-toastify를 이용하여 토스트 메시지 기능 추가
-React Query를 이용하여 서버 데이터 캐싱, 서버 상태를 간결하게 관리
+- React + TypeScript을 이용하여 서비스 구현
+- CSS in JS 라이브러리인 Styled-components를 이용하여 React 컴포넌트 스타일링
+- react-toastify를 이용하여 토스트 메시지 기능 추가
+- React Query를 이용하여 서버 데이터 캐싱, 서버 상태를 간결하게 관리
 
 ## 🗃 파일 경로
 
@@ -250,4 +250,4 @@ npm start
 localhost환경에서 서버는 port번호 8080, 클라이언트는 port번호 3000을 사용<br/>
 
 ## ⚙ 코드 리팩토링 Wiki
-[`wiki`](https://github.com/leejy001/wanted-pre-onboarding-challenge-fe-1/wiki)
+[`Home`](https://github.com/leejy001/wanted-pre-onboarding-challenge-fe-1/wiki)  [`1차 리팩토링`](https://github.com/leejy001/wanted-pre-onboarding-challenge-fe-1/wiki/1차-리팩토링)  [`2차 리팩토링`](https://github.com/leejy001/wanted-pre-onboarding-challenge-fe-1/wiki/2차-리팩토링)  
